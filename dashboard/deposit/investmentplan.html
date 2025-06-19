@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Investment Plans - General Alpha</title>
+    <link rel="stylesheet" href="../../build/assets/app-26e9a017.css">
+    <link rel="stylesheet" href="../../build/assets/theme-61cc1a47.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #537467 0%, #212046 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        .plan-card {
+            background: rgba(24, 35, 43, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: none;
+            position: relative;
+        }
+        .plan-title {
+            color: #ff0101f1;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .plan-details {
+            font-size: 1.05rem;
+            margin-bottom: 1.2rem;
+        }
+        .btn-primary {
+            background-color: #5a0b4d !important;
+            border-color: #5a0b4d !important;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #3e0734 !important;
+            border-color: #3e0734 !important;
+        }
+        .recommended-badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: #ff0101f1;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .calculator-card {
+            background: rgba(24, 35, 43, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: none;
+        }
+        .form-label {
+            color: #fff;
+            font-weight: 500;
+        }
+        .form-control, .form-select {
+            background-color: #22303a;
+            color: #fff;
+            border: 1px solid #22303a;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #22303a;
+            color: #fff;
+            border: 1px solid #5a0b4d;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../logo/logo-light.png" alt="General Alpha" width="160">
+            </a>
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle text-white" type="button" id="userMenu" data-bs-toggle="dropdown">
+                    <img src="../../build/assets/avatar-status-a27e1ee1.svg" class="rounded-circle" width="32">
+                    <span class="ms-2">My Account</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="deposit.html">Deposit</a></li>
+                    <li><a class="dropdown-item" href="withdraw.html">Withdraw</a></li>
+                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="../../login.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Live Market Price Widget START -->
+    <div class="container my-4">
+        <div class="card" style="border-radius: 18px; background: rgba(24,35,43,0.75);">
+            <div class="card-header bg-transparent">
+                <h5 class="mb-0" style="color:#0ff9f5f1;">Live Market Prices</h5>
+            </div>
+            <div class="card-body">
+                <div class="tradingview-widget-container">
+                  <div id="tradingview_ticker"></div>
+                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                  {
+                  "symbols"; [
+                    {
+                      "proName": "BINANCE:BTCUSDT",
+                      "title": "Bitcoin"
+                    },
+                    {
+                      "proName": "BINANCE:ETHUSDT",
+                      "title": "Ethereum"
+                    },
+                    {
+                      "proName": "BINANCE:BNBUSDT",
+                      "title": "BNB"
+                    },
+                    {
+                      "proName": "BINANCE:SOLUSDT",
+                      "title": "Solana"
+                    },
+                    {
+                      "proName": "BINANCE:ADAUSDT",
+                      "title": "Cardano"
+                    }
+                  ],
+                  "colorTheme"; "dark",
+                  "isTransparent"; true,
+                  "displayMode"; "adaptive",
+                  "locale"; "en"
+                  }
+                  </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Live Market Price Widget END -->
+
+    <div class="container my-5">
+        <h2 class="mb-4 text-center" style="color:#ff0101f1;">INVESTMENT PLANS</h2>
+        <h4 class="mb-3 mt-4" style="color:#78ff01f1;">SHORT TERM PLANS</h4>
+        <div class="row">
+            <!-- First Package -->
+            <div class="col-md-4">
+                <div class="plan-card">
+                    <div class="plan-title">First Package</div>
+                    <div class="plan-details">
+                        <ul>
+                            <li>Min: $100</li>
+                            <li>Max: $999</li>
+                            <li>Duration: 24 hours</li>
+                            <li>Total Profit: 16%</li>
+                        </ul>
+                    </div>
+                    <a href="deposit.html?plan=first" class="btn btn-primary w-100">Deposit</a>
+                </div>
+            </div>
+            <!-- Third Package (Recommended) -->
+            <div class="col-md-4">
+                <div class="plan-card">
+                    <span class="recommended-badge">Recommended</span>
+                    <div class="plan-title">Third Package</div>
+                    <div class="plan-details">
+                        <ul>
+                            <li>Min: $9,000</li>
+                            <li>Max: $19,750</li>
+                            <li>Duration: 7 days</li>
+                            <li>Total Profit: 35%</li>
+                        </ul>
+                    </div>
+                    <a href="deposit.html?plan=third" class="btn btn-primary w-100">Deposit</a>
+                </div>
+            </div>
+            <!-- Second Package -->
+            <div class="col-md-4">
+                <div class="plan-card">
+                    <div class="plan-title">Second Package</div>
+                    <div class="plan-details">
+                        <ul>
+                            <li>Min: $2,500</li>
+                            <li>Max: $5,900</li>
+                            <li>Duration: 72 hours</li>
+                            <li>Total Profit: 24%</li>
+                        </ul>
+                    </div>
+                    <a href="deposit.html?plan=second" class="btn btn-primary w-100">Deposit</a>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-3 mt-5" style="color:#fbfb09f1;">LONG TERM PLANS</h4>
+        <div class="row">
+            <!-- Fourth Package -->
+            <div class="col-md-6">
+                <div class="plan-card">
+                    <div class="plan-title">Fourth Package</div>
+                    <div class="plan-details">
+                        <ul>
+                            <li>Min: $10,000</li>
+                            <li>Max: $39,999</li>
+                            <li>Daily Profit: 5%</li>
+                            <li>Duration: 14 days</li>
+                            <li>Total Profit: 49%</li>
+                        </ul>
+                    </div>
+                    <a href="deposit.html?plan=fourth" class="btn btn-primary w-100">Deposit</a>
+                </div>
+            </div>
+            <!-- GOLD INVESTMENT PACKAGE -->
+            <div class="col-md-6">
+                <div class="plan-card">
+                    <span class="recommended-badge">Recommended</span>
+                    <div class="plan-title">GOLD INVESTMENT PACKAGE</div>
+                    <div class="plan-details">
+                        <ul>
+                            <li>Min: $43,500</li>
+                            <li>Max: UNLIMITED</li>
+                            <li>Duration: 30 days</li>
+                            <li>Total Profit: 72%</li>
+                        </ul>
+                    </div>
+                    <a href="deposit.html?plan=gold" class="btn btn-primary w-100">Deposit</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator -->
+        <div class="calculator-card mt-4">
+            <h4 class="mb-3" style="color:#0ff9f5f1;">PROFIT CALCULATOR</h4>
+            <form id="calcForm" class="row g-3">
+                <div class="col-md-4">
+                    <label for="calcAmount" class="form-label">Deposit Amount (USD)</label>
+                    <input type="number" class="form-control" id="calcAmount" min="100" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="calcPlan" class="form-label">Select Plan</label>
+                    <select class="form-select" id="calcPlan" required>
+                        <option value="">Choose...</option>
+                        <option value="first">First Package</option>
+                        <option value="third">Third Package</option>
+                        <option value="second">Second Package</option>
+                        <option value="fourth">Fourth Package</option>
+                        <option value="gold">GOLD INVESTMENT PACKAGE</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Calculate</button>
+                </div>
+            </form>
+            <div id="calcResult" class="mt-4" style="font-size:1.2rem;display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+    // Calculator logic for all plans
+    document.getElementById('calcForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const amount = parseFloat(document.getElementById('calcAmount').value);
+        const plan = document.getElementById('calcPlan').value;
+        let result = '';
+        if (!amount || !plan) {
+            result = '<span style="color:#ff0101f1;">Please enter amount and select a plan.</span>';
+        } else if (plan === 'first') {
+            if (amount < 100 || amount > 999) {
+                result = '<span style="color:#ff0101f1;">Amount for First Package must be between $100 and $999.</span>';
+            } else {
+                const profit = amount * 0.16;
+                const total = amount + profit;
+                result = `After 24 hours, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+            }
+        } else if (plan === 'third') {
+            if (amount < 9000 || amount > 19750) {
+                result = '<span style="color:#ff0101f1;">Amount for Third Package must be between $1,000 and $4,999.</span>';
+            } else {
+                const profit = amount * 0.35;
+                const total = amount + profit;
+                result = `After 14 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+            }
+        } else if (plan === 'second') {
+            if (amount < 2500 || amount > 5900) {
+                result = '<span style="color:#ff0101f1;">Amount for Second Package must be between $5,000 and $9,999.</span>';
+            } else {
+                const profit = amount * 0.24;
+                const total = amount + profit;
+                result = `After 7 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+            }
+        } else if (plan === 'fourth') {
+            if (amount < 10000 || amount > 39999) {
+                result = '<span style="color:#ff0101f1;">Amount for Fourth Package must be between $10,000 and $49,999.</span>';
+            } else {
+                const profit = amount * 0.49;
+                const total = amount + profit;
+                result = `After 30 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+            }
+        } else if (plan === 'gold') {
+            if (amount < 43500 || amount > 100000000000000) {
+                result = '<span style="color:#ff0101f1;">Amount for GOLD INVESTMENT PACKAGE must be between $50,000 and $100,000.</span>';
+            } else {
+                const profit = amount * 0.72;
+                const total = amount + profit;
+                result = `After 30 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+            }
+        }
+        const calcResult = document.getElementById('calcResult');
+        calcResult.innerHTML = result;
+        calcResult.style.display = 'block';
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+HTTrack3.49-2 launched on Sun, 01 Jun 2025 09:03:58 at https://lucidgains.com/
+(winhttrack https://lucidgains.com/ -O "discord/Discord" -%v )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+09:05:17	Error: 	"Not Found" (404) at link https://lucidgains.com/build/img/covers/header-cover.jpg (from https://lucidgains.com/build/assets/theme-61cc1a47.css)
+09:05:17	Error: 	"Not Found" (404) at link https://lucidgains.com/build/img/covers/sidebar-cover.jpg (from https://lucidgains.com/build/assets/theme-61cc1a47.css)
+09:05:18	Warning: 	Moved Permanently for https://lucidgains.com/Trident/
+09:05:18	Warning: 	File has moved from https://lucidgains.com/Trident/ to https://lucidgains.com/public/Trident
+09:05:19	Error: 	"Not Found" (404) at link https://lucidgains.com/public/Trident (from https://lucidgains.com/Trident/)
+
+HTTrack Website Copier/3.49-2 mirror complete in 1 minutes 21 seconds : 75 links scanned, 70 files written (6320108 bytes overall) [3383138 bytes received at 41767 bytes/sec], 4167373 bytes transferred using HTTP compression in 52 files, ratio 27%, 13.0 requests per connection
+(3 errors, 2 warnings, 0 messages)

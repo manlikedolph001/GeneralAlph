@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deposit - General Alpha</title>
+    <link rel="stylesheet" href="../../build/assets/app-26e9a017.css">
+    <link rel="stylesheet" href="../../build/assets/theme-61cc1a47.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f171c 0%, #1a0c1c 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        .card {
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            background: rgba(24, 35, 43, 0.95);
+            border: none;
+        }
+        .btn-primary {
+            background-color: #5a0b4d !important;
+            border-color: #5a0b4d !important;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #3e0734 !important;
+            border-color: #3e0734 !important;
+        }
+        .form-label {
+            color: #fff;
+            font-weight: 500;
+        }
+        .form-control, .form-select {
+            background-color: #22303a;
+            color: #fff;
+            border: 1px solid #22303a;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #22303a;
+            color: #fff;
+            border: 1px solid #5a0b4d;
+        }
+        .wallet-address-box {
+            background: #18232b;
+            color: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .copy-btn {
+            background: #5a0b4d;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.25rem 0.75rem;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+        .copy-btn:active {
+            background: #3e0734;
+        }
+        .alert-info {
+            background: #22303a;
+            color: #fff;
+            border: 1px solid #5a0b4d;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../logo/logo-light.png" alt="General Alpha" width="160">
+            </a>
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle text-white" type="button" id="userMenu" data-bs-toggle="dropdown">
+                    <img src="../../build/assets/avatar-status-a27e1ee1.svg" class="rounded-circle" width="32">
+                    <span class="ms-2">My Account</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="deposit.html">Deposit</a></li>
+                    <li><a class="dropdown-item" href="withdraw.html">Withdraw</a></li>
+                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="../../login.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card p-4">
+                    <h3 class="mb-4 text-center" style="color:#ff0101f1;">Deposit Funds</h3>
+                    <form id="depositForm">
+                        <div class="mb-3">
+                            <label for="plan" class="form-label">Choose Investment Plan</label>
+                            <select class="form-select" id="plan" required>
+                                <option value="">Select a plan</option>
+                                <option value="starter">Starter Plan - $100 min</option>
+                                <option value="silver">Silver Plan - $1,000 min</option>
+                                <option value="gold">Gold Plan - $5,000 min</option>
+                                <option value="platinum">Platinum Plan - $20,000 min</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Deposit Amount (USD)</label>
+                            <input type="number" class="form-control" id="amount" min="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="crypto" class="form-label">Select Payment Method</label>
+                            <select class="form-select" id="crypto" required>
+                                <option value="">Select</option>
+                                <option value="btc">Bitcoin (BTC)</option>
+                                <option value="usdt">Tether (USDT)</option>
+                                <option value="eth">Ethereum (ETH)</option>
+                                <option value="trx">Tron (TRX)</option>
+                            </select>
+                        </div>
+                        <div id="walletAddressSection" style="display:none;">
+                            <label class="form-label">Wallet Address</label>
+                            <div class="wallet-address-box">
+                                <span id="walletAddress"></span>
+                                <button type="button" class="copy-btn" id="copyBtn">Copy</button>
+                            </div>
+                        </div>
+                        <div id="uploadSection" style="display:none;">
+                            <label for="screenshot" class="form-label">Upload Payment Screenshot</label>
+                            <input type="file" class="form-control" id="screenshot" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-4" id="paymentSentBtn" style="display:none;">PAYMENT SENT</button>
+                    </form>
+                    <div id="waitMessage" class="alert-info text-center" style="display:none;">
+                        Thank you! Please wait while we verify your payment. You will be notified once your deposit is confirmed.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Wallet addresses for each crypto
+    const walletAddresses = {
+        btc: "bc1qexamplebtcaddress1234567890",
+        usdt: "TUSDTexampleaddress1234567890",
+        eth: "0xExampleEthereumAddress1234567890",
+        trx: "TExampleTronAddress1234567890"
+    };
+
+    const cryptoSelect = document.getElementById('crypto');
+    const walletSection = document.getElementById('walletAddressSection');
+    const walletAddressSpan = document.getElementById('walletAddress');
+    const copyBtn = document.getElementById('copyBtn');
+    const uploadSection = document.getElementById('uploadSection');
+    const paymentSentBtn = document.getElementById('paymentSentBtn');
+    const depositForm = document.getElementById('depositForm');
+    const waitMessage = document.getElementById('waitMessage');
+
+    cryptoSelect.addEventListener('change', function() {
+        const selected = cryptoSelect.value;
+        if (walletAddresses[selected]) {
+            walletSection.style.display = 'block';
+            walletAddressSpan.textContent = walletAddresses[selected];
+            uploadSection.style.display = 'block';
+            paymentSentBtn.style.display = 'block';
+        } else {
+            walletSection.style.display = 'none';
+            uploadSection.style.display = 'none';
+            paymentSentBtn.style.display = 'none';
+        }
+    });
+
+    copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText(walletAddressSpan.textContent);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => { copyBtn.textContent = "Copy"; }, 1500);
+    });
+
+    depositForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        depositForm.style.display = 'none';
+        waitMessage.style.display = 'block';
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

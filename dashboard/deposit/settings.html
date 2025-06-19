@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Settings - General Alpha</title>
+    <link rel="stylesheet" href="../../build/assets/app-26e9a017.css">
+    <link rel="stylesheet" href="../../build/assets/theme-61cc1a47.css">
+    <style>
+        body {
+            background: #0f171c;
+            color: #fff;
+        }
+        .settings-section {
+            background: #18232b;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.07);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .settings-section h3 {
+            margin-bottom: 1rem;
+            color: #ff0101f1;
+        }
+        .settings-list li {
+            margin-bottom: 0.75rem;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #fff;
+        }
+        .form-control, .form-control:focus {
+            background-color: #22303a;
+            color: #fff;
+            border: 1px solid #22303a;
+        }
+        .form-control[readonly] {
+            background-color: #1a232b;
+            color: #aaa;
+        }
+        .btn-primary {
+            background-color: #116102 !important;
+            border-color: #116102 !important;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #0e4d02 !important;
+            border-color: #0e4d02 !important;
+        }
+        .btn-outline-primary {
+            color: #116102 !important;
+            border-color: #116102 !important;
+        }
+        .btn-outline-primary:hover, .btn-outline-primary:focus {
+            background-color: #116102 !important;
+            color: #fff !important;
+            border-color: #116102 !important;
+        }
+        .navbar-dark {
+            background-color: #0f171c;
+            border-color: #0f171c;
+        }
+        .dropdown-menu {
+            background-color: #18232b;
+            color: #fff;
+        }
+        .dropdown-item {
+            color: #fff;
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #22303a;
+            color: #ff0101f1;
+        }
+        .navbar-brand img {
+            filter: brightness(1.2);
+        }
+        h2.text-center {
+            color: #ff0101f1;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../logo/logo-light.png" alt="General Alpha" width="160">
+            </a>
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle text-white" type="button" id="userMenu" data-bs-toggle="dropdown">
+                    <img src="../../build/assets/avatar-status-a27e1ee1.svg" class="rounded-circle" width="32">
+                    <span class="ms-2">My Account</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="setting.html">Settings</a></li>
+                    <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="deposit.html">Deposit</a></li>
+                    <li><a class="dropdown-item" href="withdraw.html">Withdraw</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="../../login.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="mb-4 text-center">Account Settings</h2>
+        <div class="settings-section">
+            <h3>Profile Information</h3>
+            <form>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" value="John" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" value="Doe" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" value="johnny123">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" value="john@email.com">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Update Profile</button>
+            </form>
+        </div>
+
+        <div class="settings-section">
+            <h3>Change Password</h3>
+            <form>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Change Password</button>
+            </form>
+        </div>
+
+        <div class="settings-section">
+            <h3>Two-Factor Authentication (2FA)</h3>
+            <p>Protect your account by enabling 2FA. You will need an authenticator app (like Google Authenticator or Authy).</p>
+            <button class="btn btn-outline-primary">Set Up 2FA</button>
+        </div>
+
+        <div class="settings-section">
+            <h3>KYC Verification</h3>
+            <p>To comply with regulations and enable withdrawals, please complete your KYC (Know Your Customer) verification.</p>
+            <button class="btn btn-outline-primary">Start KYC Verification</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
