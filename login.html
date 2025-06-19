@@ -69,7 +69,7 @@
                     Sign in to our dashboard.
                 </p>
                                     
-                              <form method="POST" action="https://generalalpha.com/login">
+                             <form id="loginForm">
                     <input type="hidden" name="_token" value="RyTGgklWk6hSQMk5pBfICM4MVzFTCFTFg0Lhw96u" autocomplete="off">                    <div class="form-group">
                         <label for="email_address" class="form-label">  
     Email address
@@ -120,12 +120,8 @@
 </label>
                             </div>
                         </div>
-                        <form method="POST" >
-                            <input type="hidden" name="_token" value="RyTGgklWk6hSQMk5pBfICM4MVzFTCFTFg0Lhw96u" autocomplete="off">    <input type="hidden" name="_method" value="POST">
-                            <button type="submit" class="btn btn-lg w-100 btn-primary mb-3">
-                                Sign in
-                            </button>
-                        </form>
+                         <button type="submit">Login</button>
+</form>
                     <div class="text-center">
                         <small class="text-muted text-center">
                             Don't have an account yet? <a href="register.html">Sign up</a>.
@@ -156,16 +152,10 @@
         });
     </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Find the main login form (the one with action to generalalpha.com)
-    const loginForm = document.querySelector('form[action="https://generalalpha.com/login"]');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Simulate successful login and redirect
-            window.location.href = "dashboard/deposit/dashboard.html";
-        });
-    }
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Optionally, you can check username/password here for demo
+    window.location.href = "dashboard/deposit/dashboard.html";
 });
 </script>
 <script>
