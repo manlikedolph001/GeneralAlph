@@ -202,7 +202,7 @@
                     <div class="plan-title">Fourth Package</div>
                     <div class="plan-details">
                         <ul>
-                            <li>Min: $10,000</li>
+                            <li>Min: $15,000</li>
                             <li>Max: $39,999</li>
                             <li>Daily Profit: 5%</li>
                             <li>Duration: 14 days</li>
@@ -276,31 +276,31 @@
             }
         } else if (plan === 'third') {
             if (amount < 9000 || amount > 19750) {
-                result = '<span style="color:#ff0101f1;">Amount for Third Package must be between $1,000 and $4,999.</span>';
+                result = '<span style="color:#ff0101f1;">Amount for Third Package must be between $9,000 and $19,750.</span>';
             } else {
                 const profit = amount * 0.35;
                 const total = amount + profit;
-                result = `After 14 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+                result = `After 72 hours, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
             }
         } else if (plan === 'second') {
             if (amount < 2500 || amount > 5900) {
-                result = '<span style="color:#ff0101f1;">Amount for Second Package must be between $5,000 and $9,999.</span>';
+                result = '<span style="color:#ff0101f1;">Amount for Second Package must be between $2,500 and $5,900.</span>';
             } else {
                 const profit = amount * 0.24;
                 const total = amount + profit;
                 result = `After 7 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
             }
         } else if (plan === 'fourth') {
-            if (amount < 10000 || amount > 39999) {
-                result = '<span style="color:#ff0101f1;">Amount for Fourth Package must be between $10,000 and $49,999.</span>';
+            if (amount < 15000 || amount > 39999) {
+                result = '<span style="color:#ff0101f1;">Amount for Fourth Package must be between $15,000 and $39,999.</span>';
             } else {
                 const profit = amount * 0.49;
                 const total = amount + profit;
-                result = `After 30 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+                result = `After 14 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
             }
         } else if (plan === 'gold') {
             if (amount < 43500 || amount > 100000000000000) {
-                result = '<span style="color:#ff0101f1;">Amount for GOLD INVESTMENT PACKAGE must be between $50,000 and $100,000.</span>';
+                result = '<span style="color:#ff0101f1;">Amount for GOLD INVESTMENT PACKAGE must be between $43,500 and $100,000,000,000,000.</span>';
             } else {
                 const profit = amount * 0.72;
                 const total = amount + profit;
