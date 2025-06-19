@@ -80,7 +80,7 @@
                 
                 
 
-                <form method="POST" action="https://generalalpha.com/register">
+                <form id="Registerform">
                     <input type="hidden" name="_token" value="RyTGgklWk6hSQMk5pBfICM4MVzFTCFTFg0Lhw96u" autocomplete="off">                    <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
@@ -463,13 +463,11 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-    const registerForm = document.querySelector('form[action="https://generalalpha.com/register"]');
-    if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            window.location.href = "dashboard/deposit/dashboard.html";
-        });
+        document.getElementById('Registerform').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Optionally, save user info to localStorage for demo
+    window.location.href = "dashboard/deposit/dashboard.html";
+});
     }
 });
         localStorage.setItem('userFullName', document.getElementById('full_name').value);
