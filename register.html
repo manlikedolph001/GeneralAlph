@@ -464,8 +464,7 @@
 
     // Redirect to login.html after sign up (for static/demo use)
     document.addEventListener('DOMContentLoaded', function() {
-        // Select the registration form by method and action
-        const registerForm = document.querySelector('form[action="https://generalalpha.com/register"]');
+        const registerForm = document.getElementById('registerForm') || document.querySelector('form');
         if (registerForm) {
             registerForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -474,7 +473,6 @@
         }
     });
 </script>
-
     <!-- Smartsupp Live Chat script -->
 <script type="text/javascript">
 var _smartsupp = _smartsupp || {};
