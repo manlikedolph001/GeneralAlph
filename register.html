@@ -463,13 +463,20 @@
     });
 
     // Redirect to login.html after sign up (for static/demo use)
-    document.addEventListener('DOMContentLoaded', function() {
+     document.addEventListener('DOMContentLoaded', function() {
         const registerForm = document.getElementById('registerForm') || document.querySelector('form');
         if (registerForm) {
             registerForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+                // Get the user's name from the input
+                const nameInput = document.getElementById('name') || document.querySelector('input[name="name"]');
+                if (nameInput) {
+                    localStorage.setItem('dashboardUserName', nameInput.value);
+                }
                 window.location.href = "login.html";
-            });
+        });
+        }
+    });
         }
     });
 </script>
