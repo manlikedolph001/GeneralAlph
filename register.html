@@ -80,7 +80,7 @@
                 
                 
 
-                <form method="POST" action="https://generalalpha.com/register">
+                <form id="registerForm">
                     <input type="hidden" name="_token" value="RyTGgklWk6hSQMk5pBfICM4MVzFTCFTFg0Lhw96u" autocomplete="off">                    <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
@@ -448,29 +448,29 @@
 
     
     <script>
-        const inputPasswords = document.querySelectorAll('input[type="password"]');
-        const eyeIcons = document.querySelectorAll('.fe-eye');
+         // Password show/hide logic
+    const inputPasswords = document.querySelectorAll('input[type="password"]');
+    const eyeIcons = document.querySelectorAll('.fe-eye');
 
-        eyeIcons.forEach((eyeIcon, index) => {
-            eyeIcon.addEventListener('click', function() {
-                const input = inputPasswords[index];
-                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+    eyeIcons.forEach((eyeIcon, index) => {
+        eyeIcon.addEventListener('click', function() {
+            const input = inputPasswords[index];
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            this.classList.toggle('fe-eye');
+            this.classList.toggle('fe-eye-off');
+        });
+    });
 
-                input.setAttribute('type', type);
-
-                this.classList.toggle('fe-eye');
-                this.classList.toggle('fe-eye-off');
+    // Redirect to login.html after sign up (for static/demo use)
+    document.addEventListener('DOMContentLoaded', function() {
+        const registerForm = document.getElementById('registerForm') || document.querySelector('form');
+        if (registerForm) {
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                window.location.href = "login.html";
             });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-    const registerForm = document.querySelector('form[action="https://generalalpha.com/register"]');
-    if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            window.location.href = "dashboard/deposit/dashboard.html";
-        });
-    }
+        }
 });
         document.addEventListener('DOMContentLoaded', function() {
         const registerForm = document.getElementById('registerForm') || document.querySelector('form');
