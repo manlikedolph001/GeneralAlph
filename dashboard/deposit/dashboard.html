@@ -44,21 +44,6 @@
             transform: translateY(-7px) scale(1.03);
             box-shadow: 0 16px 40px 0 rgba(90, 11, 77, 0.18);
         }
-        .dropdown-menu {
-            border-radius: 12px;
-            background: #18232b;
-            color: #fff;
-            border: none;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
-        }
-        .dropdown-item {
-            color: #fff;
-            transition: background 0.2s, color 0.2s;
-        }
-        .dropdown-item:hover, .dropdown-item:focus {
-            background-color: #5a0b4d;
-            color: #fff;
-        }
         .stat-card {
             background: linear-gradient(120deg, #5a0b4d 0%, #2d0b3a 100%);
             color: white;
@@ -89,28 +74,91 @@
         .table tbody tr:hover {
             background: rgba(90, 11, 77, 0.12);
         }
-        .global-app-asset-trigger img {
-            filter: brightness(1.2);
-        }
         .font-bold {
             color: #ff0101f1;
         }
         .hover\:text-brand-secondary-light:hover {
             color: #5a0b4d !important;
         }
-        .gtranslate_wrapper {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 9999;
+        .dashboard-balance-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
-        @media (max-width: 767px) {
-            .stat-card {
+        .dashboard-balance-row > .stat-col {
+            flex: 1 1 220px;
+            min-width: 220px;
+            max-width: 100%;
+            margin-bottom: 0 !important;
+        }
+        .dashboard-balance-row > .stat-col .card {
+            height: 100%;
+        }
+        .card-body.d-flex {
+            min-height: 120px;
+        }
+        .welcome-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        #welcome-message {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff0101f1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+        @media (max-width: 1200px) {
+            .dashboard-balance-row {
+                gap: 1rem;
+            }
+            .dashboard-balance-row > .stat-col {
+                min-width: 180px;
+            }
+        }
+        @media (max-width: 991px) {
+            .dashboard-balance-row {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .dashboard-balance-row > .stat-col {
+                min-width: 45%;
+                flex: 1 1 45%;
                 margin-bottom: 1.5rem;
             }
-            .container.my-5 {
-                margin-top: 2rem !important;
-                margin-bottom: 2rem !important;
+        }
+        @media (max-width: 767px) {
+            .dashboard-balance-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .dashboard-balance-row > .stat-col {
+                min-width: 100%;
+                flex: 1 1 100%;
+                margin-bottom: 1rem;
+            }
+            #welcome-message {
+                font-size: 1.3rem;
+            }
+            .card-body.d-flex {
+                min-height: 80px;
+            }
+        }
+        /* Footer grid responsive */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 767px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
         }
     </style>
@@ -140,15 +188,13 @@
         </div>
     </nav>
 
-    <!-- Add welcome message here -->
-    <div class="container my-4">
-        <h2 id="welcome-message" class="text-center"></h2>
-    </div>
-
     <div class="container my-5">
-        <div class="row g-4">
+        <div class="welcome-section">
+            <h2 id="welcome-message"></h2>
+        </div>
+        <div class="row g-4 dashboard-balance-row">
             <!-- Total Balance -->
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-3 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2">Total Balance</h6>
@@ -157,7 +203,7 @@
                 </div>
             </div>
             <!-- BTC Balance -->
-            <div class="col-md-6 col-lg-2">
+            <div class="col-md-6 col-lg-2 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="../../logo/btc.png" alt="BTC" width="32" class="mb-2">
@@ -167,7 +213,7 @@
                 </div>
             </div>
             <!-- USDT Balance -->
-            <div class="col-md-6 col-lg-2">
+            <div class="col-md-6 col-lg-2 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="../../logo/usdt.png" alt="USDT" width="32" class="mb-2">
@@ -177,7 +223,7 @@
                 </div>
             </div>
             <!-- BNB Balance -->
-            <div class="col-md-6 col-lg-1">
+            <div class="col-md-6 col-lg-2 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="../../logo/bnb.png" alt="BNB" width="32" class="mb-2">
@@ -187,7 +233,7 @@
                 </div>
             </div>
             <!-- TRON Balance -->
-            <div class="col-md-6 col-lg-2">
+            <div class="col-md-6 col-lg-2 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="../../logo/trx.png" alt="TRON" width="32" class="mb-2">
@@ -197,7 +243,7 @@
                 </div>
             </div>
             <!-- ETH Balance -->
-            <div class="col-md-6 col-lg-2">
+            <div class="col-md-6 col-lg-2 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="../../logo/eth.png" alt="ETH" width="32" class="mb-2">
@@ -207,7 +253,7 @@
                 </div>
             </div>
             <!-- Active Investments -->
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-3 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2">Active Investments</h6>
@@ -216,7 +262,7 @@
                 </div>
             </div>
             <!-- Total Profit -->
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-3 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2">Total Profit</h6>
@@ -225,7 +271,7 @@
                 </div>
             </div>
             <!-- Total Investments -->
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-3 stat-col">
                 <div class="card stat-card h-100">
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2">Total Investments</h6>
@@ -357,160 +403,108 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Market Price Widget START -->
-    <div class="container my-5">
-        <div class="card" style="border-radius: 18px;">
-            <div class="card-header bg-transparent">
-                <h5 class="mb-0">Live Market Prices</h5>
-            </div>
-            <div class="card-body">
-                <!-- Example TradingView Widget (Crypto Market) -->
-                <div class="tradingview-widget-container">
-                  <div id="tradingview_ticker"></div>
-                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-                  {
-                  "symbols"; [
-                    {
-                      "proName": "BINANCE:BTCUSDT",
-                      "title": "Bitcoin"
-                    },
-                    {
-                      "proName": "BINANCE:ETHUSDT",
-                      "title": "Ethereum"
-                    },
-                    {
-                      "proName": "BINANCE:BNBUSDT",
-                      "title": "BNB"
-                    },
-                    {
-                      "proName": "BINANCE:SOLUSDT",
-                      "title": "Solana"
-                    },
-                    {
-                      "proName": "BINANCE:ADAUSDT",
-                      "title": "Cardano"
-                    }
-                  ],
-                  "colorTheme"; "dark",
-                  "isTransparent"; false,
-                  "displayMode"; "adaptive",
-                  "locale"; "en"
-                  }
-                  </script>
+        <!-- Market Price Widget START -->
+        <div class="container my-5">
+            <div class="card" style="border-radius: 18px;">
+                <div class="card-header bg-transparent">
+                    <h5 class="mb-0">Live Market Prices</h5>
+                </div>
+                <div class="card-body">
+                    <div class="tradingview-widget-container">
+                      <div id="tradingview_ticker"></div>
+                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                      {
+                      "symbols": [
+                        {
+                          "proName": "BINANCE:BTCUSDT",
+                          "title": "Bitcoin"
+                        },
+                        {
+                          "proName": "BINANCE:ETHUSDT",
+                          "title": "Ethereum"
+                        },
+                        {
+                          "proName": "BINANCE:BNBUSDT",
+                          "title": "BNB"
+                        },
+                        {
+                          "proName": "BINANCE:SOLUSDT",
+                          "title": "Solana"
+                        },
+                        {
+                          "proName": "BINANCE:ADAUSDT",
+                          "title": "Cardano"
+                        }
+                      ],
+                      "colorTheme": "dark",
+                      "isTransparent": false,
+                      "displayMode": "adaptive",
+                      "locale": "en"
+                      }
+                      </script>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Market Price Widget END -->
+        <!-- Market Price Widget END -->
 
-    <div data-v-6e69db98="" class="w-full py-16 text-base md:text-sm md:flex md:space-x-36 text-brand-primary">
-        <div data-v-6e69db98="" class="flex-grow mb-5">
-            <a data-v-6e69db98="" as="div" href="../../index.html"
-               class="cursor-pointer">
-                <div data-v-6e69db98="" class="w-40 h-16 global-app-asset-trigger">
-                    <img
-                        src="../../logo/logo-dark.png" alt="Logo"
-                        class="w-full h-full object-center">
-                </div>
-            </a>
-            <div data-v-6e69db98="" class="hidden md:block">© 2025 GeneralAlpha. All
-                Rights Reserved.
+        <!-- Footer -->
+        <div class="w-full py-16 text-base md:text-sm footer-grid text-brand-primary">
+            <div>
+                <a href="../../index.html" class="cursor-pointer">
+                    <div class="w-40 h-16 global-app-asset-trigger">
+                        <img src="../../logo/logo-dark.png" alt="Logo" class="w-full h-full object-center">
+                    </div>
+                </a>
+                <div>© 2025 GeneralAlpha. All Rights Reserved.</div>
+                <div class="mt-3">9100 Wilshire Blvd, Beverly Hills, California 90212</div>
             </div>
-                                            <div data-v-6e69db98="" class="mt-3">
-                                            9100 Wilshire Blvd, Beverly Hills, California 90212
-                </div>
-                                    </div>
-        <div data-v-6e69db98="" class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div data-v-6e69db98="" class="pl-0 md:pl-12">
-                <div data-v-6e69db98="" class="pb-3 font-bold">Products</div>
-                <div data-v-6e69db98="" class="flex flex-col">
-                    <a data-v-6e69db98="" as="div" href="../../about-us.html"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light">
-                        About Us
-                    </a>
-                    <a data-v-6e69db98="" as="div" href="../../pricing.html"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light">
-                        Pricing
-                    </a>
-                    <a data-v-6e69db98="" as="div" href="../../courses.html"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light">
-                        Courses
-                    </a>
+            <div>
+                <div class="pb-3 font-bold">Products</div>
+                <div class="flex flex-col">
+                    <a href="../../about-us.html" class="py-3 cursor-pointer hover:text-brand-secondary-light">About Us</a>
+                    <a href="../../pricing.html" class="py-3 cursor-pointer hover:text-brand-secondary-light">Pricing</a>
+                    <a href="../../courses.html" class="py-3 cursor-pointer hover:text-brand-secondary-light">Courses</a>
                 </div>
             </div>
-            <div data-v-6e69db98="" class="pl-0 md:pl-12">
-                <div data-v-6e69db98="" class="pb-3 font-bold">Support &amp; Resources</div>
-                <div data-v-6e69db98="" class="flex flex-col">
-
-
-
-
-                    <a data-v-6e69db98="" as="div" href="../../contact-us.html"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light">
-                        Contact Us
-                    </a>
+            <div>
+                <div class="pb-3 font-bold">Support &amp; Resources</div>
+                <div class="flex flex-col">
+                    <a href="../../contact-us.html" class="py-3 cursor-pointer hover:text-brand-secondary-light">Contact Us</a>
                 </div>
             </div>
-            <div data-v-6e69db98="" class="pl-0 md:pl-12">
-                <div data-v-6e69db98="" class="pb-3 font-bold">Legal</div>
-                <div data-v-6e69db98="" class="flex flex-col">
-                    <a data-v-6e69db98="" as="div" href="../../terms.html"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light">
-                        Terms &amp; Conditions
-                    </a>
-                    <a data-v-6e69db98="" as="div" href="../../policy.html"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light">
-                        Privacy Policy
-                    </a>
+            <div>
+                <div class="pb-3 font-bold">Legal</div>
+                <div class="flex flex-col">
+                    <a href="../../terms.html" class="py-3 cursor-pointer hover:text-brand-secondary-light">Terms &amp; Conditions</a>
+                    <a href="../../policy.html" class="py-3 cursor-pointer hover:text-brand-secondary-light">Privacy Policy</a>
                 </div>
             </div>
-            <div data-v-6e69db98="" class="pl-0 md:pl-12">
-                <div data-v-6e69db98="" class="pb-3 font-bold">Follow Us</div>
-                <div data-v-6e69db98="" class="flex flex-col">
-                    <a data-v-6e69db98="" as="div" href="https://twitter.com/GeneralAlphaHQ"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light"
-                       target="_blank" rel="noopener noreferrer">
-                        Twitter
-                    </a>
-                    <a data-v-6e69db98="" as="div" href="https://t.me/GeneralAlphaChat"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light"
-                       target="_blank" rel="noopener noreferrer">
-                        Telegram
-                    </a>
-                    <a data-v-6e69db98="" as="div" href="https://www.linkedin.com/company/generalalpha/"
-                       class="py-3 cursor-pointer hover:text-brand-secondary-light"
-                       target="_blank" rel="noopener noreferrer">
-                        LinkedIn
-                    </a>
-                </div>
-            </div>
-        </div>
+            <div>
+        <!-- End Footer -->
     </div>
 
-    
-    <script src="../../build/assets/app-26e9a017.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../build/assets/theme-61cc1a47.js" defer></script>
     <script>
-        // Welcome message based on time of day
+        // Personalized welcome message with fallback to time-based greeting
         document.addEventListener('DOMContentLoaded', function () {
             var welcomeMessage = document.getElementById('welcome-message');
-            var hour = new Date().getHours();
-            if (hour < 12) {
-                welcomeMessage.innerText = 'Good Morning, User!';
-            } else if (hour < 18) {
-                welcomeMessage.innerText = 'Good Afternoon, User!';
+            var userName = localStorage.getItem('dashboardUserName');
+            if (userName && userName.trim() !== "") {
+                welcomeMessage.textContent = "Welcome, " + userName + "!";
             } else {
-                welcomeMessage.innerText = 'Good Evening, User!';
+                var hour = new Date().getHours();
+                if (hour < 12) {
+                    welcomeMessage.textContent = 'Good Morning!';
+                } else if (hour < 18) {
+                    welcomeMessage.textContent = 'Good Afternoon!';
+                } else {
+                    welcomeMessage.textContent = 'Good Evening!';
+                }
             }
         });
-
-        // Personalized welcome message
-        const userName = localStorage.getItem('dashboardUserName');
-        if (userName) {
-            document.getElementById('welcome-message').textContent = "Welcome, " + userName;
-        }
     </script>
 </body>
 </html>
