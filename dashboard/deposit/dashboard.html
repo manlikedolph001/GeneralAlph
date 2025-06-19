@@ -399,9 +399,9 @@ function getFirstName() {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Show welcome message
-    const welcomeEl = document.getElementById('welcome-message');
-    if (welcomeEl) {
-        welcomeEl.textContent = 'Welcome ' + getFirstName();
+    const userName = localStorage.getItem('dashboardUserName');
+    if (userName) {
+        document.getElementById('welcomeMsg').textContent = "Welcome, " + userName;
     }
 
     // Existing register redirect code (optional, can be removed from dashboard)
