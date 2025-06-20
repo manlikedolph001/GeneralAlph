@@ -21,6 +21,9 @@
             border: none;
             position: relative;
         }
+        .plan-card, .plan-card * {
+            pointer-events: auto !important;
+        }
         .plan-title {
             color: #ff0101f1;
             font-size: 1.3rem;
@@ -146,90 +149,107 @@
         <h2 class="mb-4 text-center" style="color:#ff0101f1;">INVESTMENT PLANS</h2>
         <h4 class="mb-3 mt-4" style="color:#78ff01f1;">SHORT TERM PLANS</h4>
         <div class="row">
-            <!-- First Package -->
-            <div class="col-md-4">
-                <div class="plan-card">
-                    <div class="plan-title">First Package</div>
-                    <div class="plan-details">
-                        <ul>
-                            <li>Min: $100</li>
-                            <li>Max: $999</li>
-                            <li>Duration: 24 hours</li>
-                            <li>Total Profit: 16%</li>
-                        </ul>
-                    </div>
-                    <a href="deposit.html?plan=first" class="btn btn-primary w-100">Deposit</a>
-                </div>
+           <!-- ...existing code... -->
+<div class="row">
+    <!-- First Package -->
+    <div class="col-md-4">
+        <div class="plan-card">
+            <div class="plan-title">First Package</div>
+            <div class="plan-details">
+                <ul>
+                    <li>Min: $100</li>
+                    <li>Max: $999</li>
+                    <li>Duration: 24 hours</li>
+                    <li>Total Profit: 16%</li>
+                </ul>
             </div>
-            <!-- Third Package (Recommended) -->
-            <div class="col-md-4">
-                <div class="plan-card">
-                    <span class="recommended-badge">Recommended</span>
-                    <div class="plan-title">Third Package</div>
-                    <div class="plan-details">
-                        <ul>
-                            <li>Min: $9,000</li>
-                            <li>Max: $19,750</li>
-                            <li>Duration: 7 days</li>
-                            <li>Total Profit: 35%</li>
-                        </ul>
-                    </div>
-                    <a href="deposit.html?plan=third" class="btn btn-primary w-100">Deposit</a>
-                </div>
-            </div>
-            <!-- Second Package -->
-            <div class="col-md-4">
-                <div class="plan-card">
-                    <div class="plan-title">Second Package</div>
-                    <div class="plan-details">
-                        <ul>
-                            <li>Min: $2,500</li>
-                            <li>Max: $5,900</li>
-                            <li>Duration: 72 hours</li>
-                            <li>Total Profit: 24%</li>
-                        </ul>
-                    </div>
-                    <a href="deposit.html?plan=second" class="btn btn-primary w-100">Deposit</a>
-                </div>
-            </div>
+            <a href="deposit.html?plan=first" class="btn btn-primary w-100">Deposit</a>
+            <button class="btn btn-success w-100 mt-2 invest-balance-btn" data-plan="First Package">
+                Invest with Balance
+            </button>
         </div>
-
-        <h4 class="mb-3 mt-5" style="color:#fbfb09f1;">LONG TERM PLANS</h4>
-        <div class="row">
-            <!-- Fourth Package -->
-            <div class="col-md-6">
-                <div class="plan-card">
-                    <div class="plan-title">Fourth Package</div>
-                    <div class="plan-details">
-                        <ul>
-                            <li>Min: $15,000</li>
-                            <li>Max: $39,999</li>
-                            <li>Daily Profit: 5%</li>
-                            <li>Duration: 14 days</li>
-                            <li>Total Profit: 49%</li>
-                        </ul>
-                    </div>
-                    <a href="deposit.html?plan=fourth" class="btn btn-primary w-100">Deposit</a>
-                </div>
+    </div>
+    <!-- Third Package (Recommended) -->
+    <div class="col-md-4">
+        <div class="plan-card">
+            <span class="recommended-badge">Recommended</span>
+            <div class="plan-title">Third Package</div>
+            <div class="plan-details">
+                <ul>
+                    <li>Min: $9,000</li>
+                    <li>Max: $19,750</li>
+                    <li>Duration: 7 days</li>
+                    <li>Total Profit: 35%</li>
+                </ul>
             </div>
-            <!-- GOLD INVESTMENT PACKAGE -->
-            <div class="col-md-6">
-                <div class="plan-card">
-                    <span class="recommended-badge">Recommended</span>
-                    <div class="plan-title">GOLD INVESTMENT PACKAGE</div>
-                    <div class="plan-details">
-                        <ul>
-                            <li>Min: $43,500</li>
-                            <li>Max: UNLIMITED</li>
-                            <li>Duration: 30 days</li>
-                            <li>Total Profit: 72%</li>
-                        </ul>
-                    </div>
-                    <a href="deposit.html?plan=gold" class="btn btn-primary w-100">Deposit</a>
-                </div>
-            </div>
+            <a href="deposit.html?plan=third" class="btn btn-primary w-100">Deposit</a>
+            <button class="btn btn-success w-100 mt-2 invest-balance-btn" data-plan="Third Package">
+                Invest with Balance
+            </button>
         </div>
+    </div>
+    <!-- Second Package -->
+    <div class="col-md-4">
+        <div class="plan-card">
+            <div class="plan-title">Second Package</div>
+            <div class="plan-details">
+                <ul>
+                    <li>Min: $2,500</li>
+                    <li>Max: $5,900</li>
+                    <li>Duration: 72 hours</li>
+                    <li>Total Profit: 24%</li>
+                </ul>
+            </div>
+            <a href="deposit.html?plan=second" class="btn btn-primary w-100">Deposit</a>
+            <button class="btn btn-success w-100 mt-2 invest-balance-btn" data-plan="Second Package">
+                Invest with Balance
+            </button>
+        </div>
+    </div>
+</div>
 
+<h4 class="mb-3 mt-5" style="color:#fbfb09f1;">LONG TERM PLANS</h4>
+<div class="row">
+    <!-- Fourth Package -->
+    <div class="col-md-6">
+        <div class="plan-card">
+            <div class="plan-title">Fourth Package</div>
+            <div class="plan-details">
+                <ul>
+                    <li>Min: $10,000</li>
+                    <li>Max: $39,999</li>
+                    <li>Daily Profit: 5%</li>
+                    <li>Duration: 14 days</li>
+                    <li>Total Profit: 49%</li>
+                </ul>
+            </div>
+            <a href="deposit.html?plan=fourth" class="btn btn-primary w-100">Deposit</a>
+            <button class="btn btn-success w-100 mt-2 invest-balance-btn" data-plan="Fourth Package">
+                Invest with Balance
+            </button>
+        </div>
+    </div>
+    <!-- GOLD INVESTMENT PACKAGE -->
+    <div class="col-md-6">
+        <div class="plan-card">
+            <span class="recommended-badge">Recommended</span>
+            <div class="plan-title">GOLD INVESTMENT PACKAGE</div>
+            <div class="plan-details">
+                <ul>
+                    <li>Min: $43,500</li>
+                    <li>Max: UNLIMITED</li>
+                    <li>Duration: 30 days</li>
+                    <li>Total Profit: 72%</li>
+                </ul>
+            </div>
+            <a href="deposit.html?plan=gold" class="btn btn-primary w-100">Deposit</a>
+            <button class="btn btn-success w-100 mt-2 invest-balance-btn" data-plan="GOLD INVESTMENT PACKAGE">
+                Invest with Balance
+            </button>
+        </div>
+    </div>
+</div>
+<!-- ...existing code... -->
         <!-- Calculator -->
         <div class="calculator-card mt-4">
             <h4 class="mb-3" style="color:#0ff9f5f1;">PROFIT CALCULATOR</h4>
@@ -276,31 +296,31 @@
             }
         } else if (plan === 'third') {
             if (amount < 9000 || amount > 19750) {
-                result = '<span style="color:#ff0101f1;">Amount for Third Package must be between $9,000 and $19,750.</span>';
+                result = '<span style="color:#ff0101f1;">Amount for Third Package must be between $1,000 and $4,999.</span>';
             } else {
                 const profit = amount * 0.35;
                 const total = amount + profit;
-                result = `After 72 hours, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+                result = `After 14 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
             }
         } else if (plan === 'second') {
             if (amount < 2500 || amount > 5900) {
-                result = '<span style="color:#ff0101f1;">Amount for Second Package must be between $2,500 and $5,900.</span>';
+                result = '<span style="color:#ff0101f1;">Amount for Second Package must be between $5,000 and $9,999.</span>';
             } else {
                 const profit = amount * 0.24;
                 const total = amount + profit;
                 result = `After 7 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
             }
         } else if (plan === 'fourth') {
-            if (amount < 15000 || amount > 39999) {
-                result = '<span style="color:#ff0101f1;">Amount for Fourth Package must be between $15,000 and $39,999.</span>';
+            if (amount < 10000 || amount > 39999) {
+                result = '<span style="color:#ff0101f1;">Amount for Fourth Package must be between $10,000 and $49,999.</span>';
             } else {
                 const profit = amount * 0.49;
                 const total = amount + profit;
-                result = `After 14 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
+                result = `After 30 days, you will earn <b>$${profit.toFixed(2)}</b> profit.<br>Total return: <b>$${total.toFixed(2)}</b>`;
             }
         } else if (plan === 'gold') {
             if (amount < 43500 || amount > 100000000000000) {
-                result = '<span style="color:#ff0101f1;">Amount for GOLD INVESTMENT PACKAGE must be between $43,500 and $100,000,000,000,000.</span>';
+                result = '<span style="color:#ff0101f1;">Amount for GOLD INVESTMENT PACKAGE must be between $50,000 and $100,000.</span>';
             } else {
                 const profit = amount * 0.72;
                 const total = amount + profit;
@@ -313,5 +333,201 @@
     });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Add this modal just before the closing </body> tag -->
+<div class="modal fade" id="investModal" tabindex="-1" aria-labelledby="investModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:#22303a;color:#fff;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="investModalLabel">Invest with Balance</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="investForm">
+          <div class="mb-3">
+            <label for="coinSelect" class="form-label">Choose Balance</label>
+            <select class="form-select" id="coinSelect" required>
+              <option value="">Select Coin</option>
+              <option value="BTC">BTC</option>
+              <option value="USDT">USDT</option>
+              <option value="TRX">TRX</option>
+              <option value="BNB">BNB</option>
+              <option value="ETH">ETH</option>
+            </select>
+            <div id="coinBalance" class="form-text text-info mt-1"></div>
+          </div>
+          <div class="mb-3">
+            <label for="investAmount" class="form-label">Amount (<span id="planRange"></span>)</label>
+            <input type="number" class="form-control" id="investAmount" min="0" required>
+          </div>
+          <input type="hidden" id="investPlan">
+          <button type="submit" class="btn btn-success w-100">Invest</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// --- Utility functions to sync balances and investments everywhere ---
+function getUserBalances() {
+    return JSON.parse(localStorage.getItem('userBalances') || '{}');
+}
+function setUserBalances(balances) {
+    localStorage.setItem('userBalances', JSON.stringify(balances));
+}
+function getTotalInvestment() {
+    return parseFloat(localStorage.getItem('totalInvestment') || '0');
+}
+function setTotalInvestment(val) {
+    localStorage.setItem('totalInvestment', val.toFixed(2));
+}
+function getActiveInvestments() {
+    return JSON.parse(localStorage.getItem('activeInvestments') || '[]');
+}
+function setActiveInvestments(arr) {
+    localStorage.setItem('activeInvestments', JSON.stringify(arr));
+}
+function updateDashboardUI() {
+    const balances = getUserBalances();
+    document.getElementById('balanceBTC').textContent = (balances.BTC || 0).toFixed(2);
+    document.getElementById('balanceUSDT').textContent = (balances.USDT || 0).toFixed(2);
+    document.getElementById('balanceTRX').textContent = (balances.TRX || 0).toFixed(2);
+    document.getElementById('balanceBNB').textContent = (balances.BNB || 0).toFixed(2);
+    document.getElementById('balanceETH').textContent = (balances.ETH || 0).toFixed(2);
+    document.getElementById('totalInvestment').textContent = getTotalInvestment().toFixed(2);
+    document.getElementById('activeInvestments').textContent = getActiveInvestments().length;
+}
+
+// --- Investment logic with profit payout after period ---
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize balances if not set
+    if (!localStorage.getItem('userBalances')) {
+        setUserBalances({
+            BTC: 5000,
+            USDT: 3000,
+            TRX: 2000,
+            BNB: 1500,
+            ETH: 2500
+        });
+    }
+    if (!localStorage.getItem('totalInvestment')) setTotalInvestment(0);
+    if (!localStorage.getItem('activeInvestments')) setActiveInvestments([]);
+
+    // Plan configs (add profitPercent and duration in ms for demo)
+    const plans = {
+        "First Package": { min: 100, max: 999, profitPercent: 0.16, duration: 24 * 60 * 60 * 1000 },
+        "Second Package": { min: 2500, max: 5900, profitPercent: 0.24, duration: 3 * 24 * 60 * 60 * 1000 },
+        "Third Package": { min: 9000, max: 19750, profitPercent: 0.35, duration: 7 * 24 * 60 * 60 * 1000 },
+        "Fourth Package": { min: 10000, max: 39999, profitPercent: 0.49, duration: 14 * 24 * 60 * 60 * 1000 },
+        "GOLD INVESTMENT PACKAGE": { min: 43500, max: 100000000000000, profitPercent: 0.72, duration: 30 * 24 * 60 * 60 * 1000 }
+    };
+
+    updateDashboardUI();
+
+    // Show modal on Invest with Balance click
+    document.querySelectorAll('.invest-balance-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const currentPlan = this.dataset.plan;
+            document.getElementById('investPlan').value = currentPlan;
+            document.getElementById('coinSelect').value = '';
+            document.getElementById('coinBalance').textContent = '';
+            document.getElementById('investAmount').value = '';
+            document.getElementById('planRange').textContent = `$${plans[currentPlan].min} - $${plans[currentPlan].max === 100000000000000 ? 'UNLIMITED' : plans[currentPlan].max}`;
+            let investModal = new bootstrap.Modal(document.getElementById('investModal'));
+            investModal.show();
+        });
+    });
+
+    // Show balance when coin is selected
+    document.getElementById('coinSelect').addEventListener('change', function() {
+        let coin = this.value;
+        let userBalances = getUserBalances();
+        if (coin && userBalances[coin] !== undefined) {
+            document.getElementById('coinBalance').textContent = `Available: $${userBalances[coin]}`;
+        } else {
+            document.getElementById('coinBalance').textContent = '';
+        }
+    });
+
+    // Handle invest form submit
+    document.getElementById('investForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        let coin = document.getElementById('coinSelect').value;
+        let amount = parseFloat(document.getElementById('investAmount').value);
+        let plan = document.getElementById('investPlan').value;
+        let userBalances = getUserBalances();
+        let min = plans[plan].min;
+        let max = plans[plan].max;
+        let profitPercent = plans[plan].profitPercent;
+        let duration = plans[plan].duration;
+        if (!coin || userBalances[coin] === undefined) {
+            alert('Please select a valid coin.');
+            return;
+        }
+        if (isNaN(amount) || amount < min || (max !== 100000000000000 && amount > max)) {
+            alert(`Amount must be between $${min} and $${max === 100000000000000 ? 'UNLIMITED' : max}.`);
+            return;
+        }
+        if (amount > userBalances[coin]) {
+            alert('Insufficient balance.');
+            return;
+        }
+        // Deduct and update
+        userBalances[coin] -= amount;
+        setUserBalances(userBalances);
+        setTotalInvestment(getTotalInvestment() + amount);
+
+        // Add to active investments
+        let activeInvestments = getActiveInvestments();
+        const now = Date.now();
+        activeInvestments.push({
+            coin,
+            amount,
+            plan,
+            profitPercent,
+            investedAt: now,
+            duration,
+            endsAt: now + duration,
+            paid: false
+        });
+        setActiveInvestments(activeInvestments);
+
+        updateDashboardUI();
+
+        // Hide modal
+        bootstrap.Modal.getInstance(document.getElementById('investModal')).hide();
+        alert(`Investment successful! New ${coin} balance: $${userBalances[coin].toFixed(2)}\nTotal Investment: $${getTotalInvestment().toFixed(2)}`);
+    });
+
+    // --- Profit payout logic: check every 10 seconds for demo (use longer in production) ---
+    setInterval(function() {
+        let activeInvestments = getActiveInvestments();
+        let userBalances = getUserBalances();
+        let changed = false;
+        let newActive = [];
+        activeInvestments.forEach(inv => {
+            if (!inv.paid && Date.now() >= inv.endsAt) {
+                // Pay profit + principal
+                const profit = inv.amount * inv.profitPercent;
+                userBalances[inv.coin] = (userBalances[inv.coin] || 0) + inv.amount + profit;
+                changed = true;
+                // Optionally, show a notification here
+                alert(`Your investment in ${inv.plan} has matured!\nYou received $${(inv.amount + profit).toFixed(2)} (${inv.amount} principal + $${profit.toFixed(2)} profit) in ${inv.coin}.`);
+            } else {
+                newActive.push(inv);
+            }
+        });
+        if (changed) {
+            setUserBalances(userBalances);
+            setActiveInvestments(newActive);
+            updateDashboardUI();
+        }
+    }, 10000); // Check every 10 seconds for demo
+
+    // Initial UI update
+    updateDashboardUI();
+});
+</script>
 </body>
 </html>
