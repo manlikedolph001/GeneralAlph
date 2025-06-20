@@ -157,8 +157,18 @@
         eth: "0xExampleEthereumAddress1234567890",
         trx: "TExampleTronAddress1234567890",
         bnb: "0x1234567890abcdef1234567890abcdef12345678"
-        
     };
+
+    // Utility for deposit history
+    function getDepositHistory() {
+        return JSON.parse(localStorage.getItem('depositHistory') || '[]');
+    }
+    function setDepositHistory(history) {
+        localStorage.setItem('depositHistory', JSON.stringify(history));
+    }
+    function getUserBalances() {
+        return JSON.parse(localStorage.getItem('userBalances') || '{}');
+    }
 
     const cryptoSelect = document.getElementById('crypto');
     const walletSection = document.getElementById('walletAddressSection');
@@ -169,8 +179,15 @@
     const depositForm = document.getElementById('depositForm');
     const waitMessage = document.getElementById('waitMessage');
 
+    // Add available balance display
+    let balanceInfo = document.createElement('div');
+    balanceInfo.id = "coinBalanceInfo";
+    balanceInfo.className = "form-text text-info mt-1 mb-2";
+    cryptoSelect.parentNode.appendChild(balanceInfo);
+
     cryptoSelect.addEventListener('change', function() {
         const selected = cryptoSelect.value;
+        // Show wallet address and upload/payment button
         if (walletAddresses[selected]) {
             walletSection.style.display = 'block';
             walletAddressSpan.textContent = walletAddresses[selected];
@@ -180,6 +197,14 @@
             walletSection.style.display = 'none';
             uploadSection.style.display = 'none';
             paymentSentBtn.style.display = 'none';
+        }
+        // Show available balance
+        const balances = getUserBalances();
+        let coinKey = selected ? selected.toUpperCase() : '';
+        if (coinKey && balances[coinKey] !== undefined) {
+            balanceInfo.textContent = `Available Balance: $${balances[coinKey]}`;
+        } else {
+            balanceInfo.textContent = '';
         }
     });
 
@@ -191,6 +216,20 @@
 
     depositForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        // Get values
+        const coin = cryptoSelect.value.toUpperCase();
+        const amount = parseFloat(document.getElementById('amount').value);
+
+        // Add to deposit history as "Pending" or "Approved"
+        let depositHistory = getDepositHistory();
+        depositHistory.unshift({
+            date: new Date().toLocaleString(),
+            amount: amount,
+            currency: coin,
+            status: Math.random() > 0.5 ? 'Pending' : 'Approved'
+        });
+        setDepositHistory(depositHistory);
+
         depositForm.style.display = 'none';
         waitMessage.style.display = 'block';
     });
