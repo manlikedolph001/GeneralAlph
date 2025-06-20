@@ -334,7 +334,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Add this modal just before the closing </body> tag -->
+<!-- Add this modal just before the closing </body> tag -->
 <div class="modal fade" id="investModal" tabindex="-1" aria-labelledby="investModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="background:#22303a;color:#fff;">
@@ -369,165 +369,140 @@
 </div>
 
 <script>
-// --- Utility functions to sync balances and investments everywhere ---
-function getUserBalances() {
-    return JSON.parse(localStorage.getItem('userBalances') || '{}');
-}
-function setUserBalances(balances) {
-    localStorage.setItem('userBalances', JSON.stringify(balances));
-}
-function getTotalInvestment() {
-    return parseFloat(localStorage.getItem('totalInvestment') || '0');
-}
-function setTotalInvestment(val) {
-    localStorage.setItem('totalInvestment', val.toFixed(2));
-}
-function getActiveInvestments() {
-    return JSON.parse(localStorage.getItem('activeInvestments') || '[]');
-}
-function setActiveInvestments(arr) {
-    localStorage.setItem('activeInvestments', JSON.stringify(arr));
-}
-function updateDashboardUI() {
-    const balances = getUserBalances();
-    document.getElementById('balanceBTC').textContent = (balances.BTC || 0).toFixed(2);
-    document.getElementById('balanceUSDT').textContent = (balances.USDT || 0).toFixed(2);
-    document.getElementById('balanceTRX').textContent = (balances.TRX || 0).toFixed(2);
-    document.getElementById('balanceBNB').textContent = (balances.BNB || 0).toFixed(2);
-    document.getElementById('balanceETH').textContent = (balances.ETH || 0).toFixed(2);
-    document.getElementById('totalInvestment').textContent = getTotalInvestment().toFixed(2);
-    document.getElementById('activeInvestments').textContent = getActiveInvestments().length;
-}
-
-// --- Investment logic with profit payout after period ---
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize balances if not set
-    if (!localStorage.getItem('userBalances')) {
-        setUserBalances({
-            BTC: 5000,
-            USDT: 3000,
-            TRX: 2000,
-            BNB: 1500,
-            ETH: 2500
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize balances and investments if not set
+        if (!localStorage.getItem('userBalances')) {
+            localStorage.setItem('userBalances', JSON.stringify({
+                BTC: 5000,
+                USDT: 3000,
+                TRX: 2000,
+                BNB: 1500,
+                ETH: 2500
+            }));
+        }
+        if (!localStorage.getItem('totalInvestment')) {
+            localStorage.setItem('totalInvestment', '0');
+        }
+        if (!localStorage.getItem('activeInvestments')) {
+            localStorage.setItem('activeInvestments', '[]');
+        }
+    
+        // Plan configs (add profitPercent and duration in ms for demo)
+        const plans = {
+            "First Package": { min: 100, max: 999, profitPercent: 0.16, duration: 24 * 60 * 60 * 1000 },
+            "Second Package": { min: 2500, max: 5900, profitPercent: 0.24, duration: 3 * 24 * 60 * 60 * 1000 },
+            "Third Package": { min: 9000, max: 19750, profitPercent: 0.35, duration: 7 * 24 * 60 * 60 * 1000 },
+            "Fourth Package": { min: 10000, max: 39999, profitPercent: 0.49, duration: 14 * 24 * 60 * 60 * 1000 },
+            "GOLD INVESTMENT PACKAGE": { min: 43500, max: 100000000000000, profitPercent: 0.72, duration: 30 * 24 * 60 * 60 * 1000 }
+        };
+    
+        // Show modal on Invest with Balance click
+        document.querySelectorAll('.invest-balance-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const currentPlan = this.dataset.plan;
+                document.getElementById('investPlan').value = currentPlan;
+                document.getElementById('coinSelect').value = '';
+                document.getElementById('coinBalance').textContent = '';
+                document.getElementById('investAmount').value = '';
+                document.getElementById('planRange').textContent = `$${plans[currentPlan].min} - $${plans[currentPlan].max === 100000000000000 ? 'UNLIMITED' : plans[currentPlan].max}`;
+                let investModal = new bootstrap.Modal(document.getElementById('investModal'));
+                investModal.show();
+            });
         });
-    }
-    if (!localStorage.getItem('totalInvestment')) setTotalInvestment(0);
-    if (!localStorage.getItem('activeInvestments')) setActiveInvestments([]);
-
-    // Plan configs (add profitPercent and duration in ms for demo)
-    const plans = {
-        "First Package": { min: 100, max: 999, profitPercent: 0.16, duration: 24 * 60 * 60 * 1000 },
-        "Second Package": { min: 2500, max: 5900, profitPercent: 0.24, duration: 3 * 24 * 60 * 60 * 1000 },
-        "Third Package": { min: 9000, max: 19750, profitPercent: 0.35, duration: 7 * 24 * 60 * 60 * 1000 },
-        "Fourth Package": { min: 10000, max: 39999, profitPercent: 0.49, duration: 14 * 24 * 60 * 60 * 1000 },
-        "GOLD INVESTMENT PACKAGE": { min: 43500, max: 100000000000000, profitPercent: 0.72, duration: 30 * 24 * 60 * 60 * 1000 }
-    };
-
-    updateDashboardUI();
-
-    // Show modal on Invest with Balance click
-    document.querySelectorAll('.invest-balance-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const currentPlan = this.dataset.plan;
-            document.getElementById('investPlan').value = currentPlan;
-            document.getElementById('coinSelect').value = '';
-            document.getElementById('coinBalance').textContent = '';
-            document.getElementById('investAmount').value = '';
-            document.getElementById('planRange').textContent = `$${plans[currentPlan].min} - $${plans[currentPlan].max === 100000000000000 ? 'UNLIMITED' : plans[currentPlan].max}`;
-            let investModal = new bootstrap.Modal(document.getElementById('investModal'));
-            investModal.show();
-        });
-    });
-
-    // Show balance when coin is selected
-    document.getElementById('coinSelect').addEventListener('change', function() {
-        let coin = this.value;
-        let userBalances = getUserBalances();
-        if (coin && userBalances[coin] !== undefined) {
-            document.getElementById('coinBalance').textContent = `Available: $${userBalances[coin]}`;
-        } else {
-            document.getElementById('coinBalance').textContent = '';
-        }
-    });
-
-    // Handle invest form submit
-    document.getElementById('investForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        let coin = document.getElementById('coinSelect').value;
-        let amount = parseFloat(document.getElementById('investAmount').value);
-        let plan = document.getElementById('investPlan').value;
-        let userBalances = getUserBalances();
-        let min = plans[plan].min;
-        let max = plans[plan].max;
-        let profitPercent = plans[plan].profitPercent;
-        let duration = plans[plan].duration;
-        if (!coin || userBalances[coin] === undefined) {
-            alert('Please select a valid coin.');
-            return;
-        }
-        if (isNaN(amount) || amount < min || (max !== 100000000000000 && amount > max)) {
-            alert(`Amount must be between $${min} and $${max === 100000000000000 ? 'UNLIMITED' : max}.`);
-            return;
-        }
-        if (amount > userBalances[coin]) {
-            alert('Insufficient balance.');
-            return;
-        }
-        // Deduct and update
-        userBalances[coin] -= amount;
-        setUserBalances(userBalances);
-        setTotalInvestment(getTotalInvestment() + amount);
-
-        // Add to active investments
-        let activeInvestments = getActiveInvestments();
-        const now = Date.now();
-        activeInvestments.push({
-            coin,
-            amount,
-            plan,
-            profitPercent,
-            investedAt: now,
-            duration,
-            endsAt: now + duration,
-            paid: false
-        });
-        setActiveInvestments(activeInvestments);
-
-        updateDashboardUI();
-
-        // Hide modal
-        bootstrap.Modal.getInstance(document.getElementById('investModal')).hide();
-        alert(`Investment successful! New ${coin} balance: $${userBalances[coin].toFixed(2)}\nTotal Investment: $${getTotalInvestment().toFixed(2)}`);
-    });
-
-    // --- Profit payout logic: check every 10 seconds for demo (use longer in production) ---
-    setInterval(function() {
-        let activeInvestments = getActiveInvestments();
-        let userBalances = getUserBalances();
-        let changed = false;
-        let newActive = [];
-        activeInvestments.forEach(inv => {
-            if (!inv.paid && Date.now() >= inv.endsAt) {
-                // Pay profit + principal
-                const profit = inv.amount * inv.profitPercent;
-                userBalances[inv.coin] = (userBalances[inv.coin] || 0) + inv.amount + profit;
-                changed = true;
-                // Optionally, show a notification here
-                alert(`Your investment in ${inv.plan} has matured!\nYou received $${(inv.amount + profit).toFixed(2)} (${inv.amount} principal + $${profit.toFixed(2)} profit) in ${inv.coin}.`);
+    
+        // Show balance when coin is selected
+        document.getElementById('coinSelect').addEventListener('change', function() {
+            let coin = this.value;
+            let userBalances = JSON.parse(localStorage.getItem('userBalances'));
+            if (coin && userBalances[coin] !== undefined) {
+                document.getElementById('coinBalance').textContent = `Available: $${userBalances[coin]}`;
             } else {
-                newActive.push(inv);
+                document.getElementById('coinBalance').textContent = '';
             }
         });
-        if (changed) {
-            setUserBalances(userBalances);
-            setActiveInvestments(newActive);
-            updateDashboardUI();
-        }
-    }, 10000); // Check every 10 seconds for demo
-
-    // Initial UI update
-    updateDashboardUI();
-});
-</script>
+    
+        // Handle invest form submit
+        document.getElementById('investForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let coin = document.getElementById('coinSelect').value;
+            let amount = parseFloat(document.getElementById('investAmount').value);
+            let plan = document.getElementById('investPlan').value;
+            let userBalances = JSON.parse(localStorage.getItem('userBalances'));
+            let min = plans[plan].min;
+            let max = plans[plan].max;
+            let profitPercent = plans[plan].profitPercent;
+            let duration = plans[plan].duration;
+            if (!coin || userBalances[coin] === undefined) {
+                alert('Please select a valid coin.');
+                return;
+            }
+            if (isNaN(amount) || amount < min || (max !== 100000000000000 && amount > max)) {
+                alert(`Amount must be between $${min} and $${max === 100000000000000 ? 'UNLIMITED' : max}.`);
+                return;
+            }
+            if (amount > userBalances[coin]) {
+                alert('Insufficient balance.');
+                return;
+            }
+            // Deduct and update
+            userBalances[coin] -= amount;
+            localStorage.setItem('userBalances', JSON.stringify(userBalances));
+            let totalInvestment = parseFloat(localStorage.getItem('totalInvestment')) + amount;
+            localStorage.setItem('totalInvestment', totalInvestment.toFixed(2));
+    
+            // Add to active investments
+            let activeInvestments = JSON.parse(localStorage.getItem('activeInvestments'));
+            const now = Date.now();
+            activeInvestments.push({
+                coin,
+                amount,
+                plan,
+                profitPercent,
+                investedAt: now,
+                duration,
+                endsAt: now + duration,
+                paid: false
+            });
+            localStorage.setItem('activeInvestments', JSON.stringify(activeInvestments));
+    
+            // Hide modal
+            bootstrap.Modal.getInstance(document.getElementById('investModal')).hide();
+            alert(`Investment successful! New ${coin} balance: $${userBalances[coin].toFixed(2)}\nTotal Investment: $${totalInvestment.toFixed(2)}`);
+    
+            // Optionally update UI if you show active investments on this page
+            if (document.getElementById('activeInvestments')) {
+                document.getElementById('activeInvestments').textContent = activeInvestments.length;
+            }
+        });
+    
+        // (Optional) Payout matured investments and update balances
+        setInterval(function() {
+            let activeInvestments = JSON.parse(localStorage.getItem('activeInvestments'));
+            let userBalances = JSON.parse(localStorage.getItem('userBalances'));
+            let changed = false;
+            let newActive = [];
+            activeInvestments.forEach(inv => {
+                if (!inv.paid && Date.now() >= inv.endsAt) {
+                    // Pay profit + principal
+                    const profit = inv.amount * inv.profitPercent;
+                    userBalances[inv.coin] = (userBalances[inv.coin] || 0) + inv.amount + profit;
+                    changed = true;
+                    // Optionally, show a notification here
+                    alert(`Your investment in ${inv.plan} has matured!\nYou received $${(inv.amount + profit).toFixed(2)} (${inv.amount} principal + $${profit.toFixed(2)} profit) in ${inv.coin}.`);
+                } else {
+                    newActive.push(inv);
+                }
+            });
+            if (changed) {
+                localStorage.setItem('userBalances', JSON.stringify(userBalances));
+                localStorage.setItem('activeInvestments', JSON.stringify(newActive));
+                if (document.getElementById('activeInvestments')) {
+                    document.getElementById('activeInvestments').textContent = newActive.length;
+                }
+            }
+        }, 10000); // Check every 10 seconds for demo
+    });
+    </script>
+    
 </body>
 </html>
