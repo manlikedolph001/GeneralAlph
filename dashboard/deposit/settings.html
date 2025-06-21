@@ -76,6 +76,47 @@
         h2.text-center {
             color: #ff0101f1;
         }
+
+        [data-theme="light"] body {
+            background: #fff !important;
+            color: #222 !important;
+        }
+        [data-theme="light"] .settings-section {
+            background: #f7f7f7 !important;
+            color: #222 !important;
+            box-shadow: 0 0 10px rgba(0,0,0,0.04);
+        }
+        [data-theme="light"] .settings-section h3 {
+            color: #b30000 !important;
+        }
+        [data-theme="light"] .form-label {
+            color: #222 !important;
+        }
+        [data-theme="light"] .form-control, 
+        [data-theme="light"] .form-control:focus {
+            background-color: #fff !important;
+            color: #222 !important;
+            border: 1px solid #ccc !important;
+        }
+        [data-theme="light"] .form-control[readonly] {
+            background-color: #f0f0f0 !important;
+            color: #888 !important;
+        }
+        [data-theme="light"] .btn-primary {
+            background-color: #b30000 !important;
+            border-color: #b30000 !important;
+            color: #fff !important;
+        }
+        [data-theme="light"] .btn-outline-primary {
+            color: #b30000 !important;
+            border-color: #b30000 !important;
+        }
+        [data-theme="light"] .btn-outline-primary:hover, 
+        [data-theme="light"] .btn-outline-primary:focus {
+            background-color: #b30000 !important;
+            color: #fff !important;
+            border-color: #b30000 !important;
+        }
     </style>
 </head>
 <body>
@@ -90,10 +131,10 @@
                     <span class="ms-2">My Account</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="setting.html">Settings</a></li>
                     <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
                     <li><a class="dropdown-item" href="deposit.html">Deposit</a></li>
                     <li><a class="dropdown-item" href="withdraw.html">Withdraw</a></li>
+                    <li><a class="dropdown-item" href="wallet.html"> Add Wallet</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item text-danger" href="../../login.html">Logout</a></li>
                 </ul>
@@ -102,104 +143,186 @@
     </nav>
 
     <div class="container my-5">
-        <h2 class="mb-4 text-center">Account Settings</h2>
-        <div class="settings-section">
-            <h3>Profile Information</h3>
-            <form>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" value="John" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control" value="Doe" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Username</label>
-                        <input type="text" class="form-control" value="johnny123">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" value="john@email.com">
-                    </div>
+    <h2 class="mb-4 text-center">Account Settings</h2>
+    <div class="settings-section">
+        <h3>Profile Information</h3>
+        <form id="profileForm" autocomplete="off">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" readonly>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Update Profile</button>
-            </form>
-        </div>
+                <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" id="profileUsername" required>
+                    <div class="invalid-feedback" id="usernameError"></div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="profileEmail" required>
+                    <div class="invalid-feedback" id="emailError"></div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Update Profile</button>
+            <div id="profileStatus" class="mt-2"></div>
+        </form>
+    </div>
 
-        <div class="settings-section">
-            <h3>Change Password</h3>
-            <form>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="form-label">Current Password</label>
-                        <input type="password" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">New Password</label>
-                        <input type="password" class="form-control">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Confirm New Password</label>
-                        <input type="password" class="form-control">
-                    </div>
+    <div class="settings-section">
+        <h3>Change Password</h3>
+        <form id="passwordForm" autocomplete="off">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Current Password</label>
+                    <input type="password" class="form-control" id="currentPassword" required>
+                    <div class="invalid-feedback" id="currentPasswordError"></div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Change Password</button>
-            </form>
+                <div class="col-md-4">
+                    <label class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirmNewPassword" required>
+                    <div class="invalid-feedback" id="newPasswordError"></div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Change Password</button>
+            <div id="passwordStatus" class="mt-2"></div>
+        </form>
+    </div>
+
+<div class="settings-section">
+    <h3>Theme Preferences</h3>
+    <div class="mb-2">
+        <label class="form-label mb-1">Choose your theme:</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="themeMode" id="themeLight" value="light">
+            <label class="form-check-label" for="themeLight">Light</label>
         </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="themeMode" id="themeDark" value="dark">
+            <label class="form-check-label" for="themeDark">Dark</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="themeMode" id="themeSystem" value="system">
+            <label class="form-check-label" for="themeSystem">System</label>
+        </div>
+    </div>
+</div>
+
+<div class="settings-section">
+    <h3>Your Referral Link</h3>
+    <div class="input-group mb-2">
+        <input type="text" class="form-control" id="referralLink" readonly>
+        <button class="btn btn-outline-primary" type="button" id="copyReferralBtn">Copy</button>
+    </div>
+    <div id="referralCopyStatus" class="text-success" style="display:none;">Copied!</div>
+</div>
 
         <div class="settings-section">
             <h3>Two-Factor Authentication (2FA)</h3>
             <p>Protect your account by enabling 2FA. You will need an authenticator app (like Google Authenticator or Authy).</p>
-            <button class="btn btn-outline-primary">Set Up 2FA</button>
+            <button class="btn btn-outline-primary" type="button" id="show2FAModalBtn">Enable 2FA</button>
         </div>
 
-        <div class="settings-section">
-            <h3>KYC Verification</h3>
-            <p>To comply with regulations and enable withdrawals, please complete your KYC verification.</p>
-            <button class="btn btn-outline-primary">Start KYC Verification</button>
-        </div>
-    </div>
+ <script>
+function getUserProfile() {
+    // Simulate fetching from localStorage (should be replaced with real backend call)
+    // Example: {firstName: "John", lastName: "Doe", username: "johnny123", email: "john@email.com", password: "Password123!"}
+    return JSON.parse(localStorage.getItem('userProfile') || '{"firstName":"John","lastName":"Doe","username":"johnny123","email":"john@email.com","password":"Password123!"}');
+}
+function setUserProfile(profile) {
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // Prefill profile info
+    const profile = getUserProfile();
+    document.getElementById('firstName').value = profile.firstName || '';
+    document.getElementById('lastName').value = profile.lastName || '';
+    document.getElementById('profileUsername').value = profile.username || '';
+    document.getElementById('profileEmail').value = profile.email || '';
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Place this just before the closing </body> tag -->
+    // Referral link
+    const referralLink = `https://www.generalalpha.com/register?ref=${encodeURIComponent(profile.username || '')}`;
+    document.getElementById('referralLink').value = referralLink;
+    document.getElementById('copyReferralBtn').onclick = function() {
+        navigator.clipboard.writeText(referralLink).then(function() {
+            document.getElementById('referralCopyStatus').style.display = 'block';
+            setTimeout(() => document.getElementById('referralCopyStatus').style.display = 'none', 1200);
+        });
+    };
+    // Profile update validation
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        let valid = true;
+        const username = document.getElementById('profileUsername').value.trim();
+        const email = document.getElementById('profileEmail').value.trim();
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        usernameError.textContent = '';
+        emailError.textContent = '';
+        // Username uniqueness check (simulate with localStorage for demo)
+        const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+        if (allUsers.some(u => u.username === username && username !== profile.username)) {
+            usernameError.textContent = 'Username already taken.';
+            valid = false;
+        }
+        // Email format check
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            emailError.textContent = 'Invalid email format.';
+            valid = false;
+        }
+        if (!valid) return;
+        // Save changes
+        profile.username = username;
+        profile.email = email;
+        setUserProfile(profile);
+        document.getElementById('profileStatus').innerHTML = '<span class="text-success">Profile updated!</span>';
+        // Update referral link
+        document.getElementById('referralLink').value = `https://www.generalalpha.com/register?ref=${encodeURIComponent(username)}`;
+        setTimeout(() => document.getElementById('profileStatus').innerHTML = '', 1800);
+    });
 
-<!-- KYC Modal -->
-<div class="modal fade" id="kycModal" tabindex="-1" aria-labelledby="kycModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content" style="background:#18232b;color:#fff;">
-        <div class="modal-header">
-          <h5 class="modal-title" id="kycModalLabel">KYC Verification</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="kycForm">
-            <div class="mb-3">
-              <label for="kycFullName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="kycFullName" required>
-            </div>
-            <div class="mb-3">
-              <label for="kycIdType" class="form-label">ID Type</label>
-              <select class="form-select" id="kycIdType" required>
-                <option value="">Select</option>
-                <option value="passport">Passport</option>
-                <option value="driver">Driver's License</option>
-                <option value="national">National ID</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="kycIdFile" class="form-label">Upload ID Document</label>
-              <input type="file" class="form-control" id="kycIdFile" accept="image/*,.pdf" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Submit KYC</button>
-            <div id="kycStatus" class="mt-2"></div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+    // Password change logic
+    document.getElementById('passwordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const current = document.getElementById('currentPassword').value;
+        const newPass = document.getElementById('newPassword').value;
+        const confirmPass = document.getElementById('confirmNewPassword').value;
+        const currentError = document.getElementById('currentPasswordError');
+        const newError = document.getElementById('newPasswordError');
+        const status = document.getElementById('passwordStatus');
+        currentError.textContent = '';
+        newError.textContent = '';
+        status.textContent = '';
+        // Check current password
+        if (current !== profile.password) {
+            currentError.textContent = 'Incorrect current password.';
+            return;
+        }
+        // New password strength
+        if (newPass.length < 8 || !/[A-Z]/.test(newPass) || !/[a-z]/.test(newPass) || !/[0-9]/.test(newPass)) {
+            newError.textContent = 'Password must be at least 8 characters, include upper/lowercase and a number.';
+            return;
+        }
+        if (newPass !== confirmPass) {
+            newError.textContent = 'Passwords do not match.';
+            return;
+        }
+        // Save new password
+        profile.password = newPass;
+        setUserProfile(profile);
+        status.innerHTML = '<span class="text-success">Password updated successfully!</span>';
+        setTimeout(() => status.innerHTML = '', 1800);
+        document.getElementById('passwordForm').reset();
+    });
+});
+</script> 
   <script>
   document.querySelectorAll('.settings-section button.btn-outline-primary').forEach(function(btn){
       if(btn.textContent.includes('KYC')) {
@@ -209,22 +332,13 @@
           });
       }
   });
-  
-  // Demo KYC form submission
-  document.getElementById('kycForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var status = document.getElementById('kycStatus');
-      status.innerHTML = '<span class="text-success">KYC submitted! We will review your documents and notify you soon.</span>';
-      setTimeout(() => {
-          var modal = bootstrap.Modal.getInstance(document.getElementById('kycModal'));
-          modal.hide();
-          status.innerHTML = '';
-          document.getElementById('kycForm').reset();
-      }, 1800);
-  });
-  </script>
+// 2FA modal logic
+document.getElementById('show2FAModalBtn').addEventListener('click', function() {
+    var twoFAModal = new bootstrap.Modal(document.getElementById('twoFAModal'));
+    twoFAModal.show();
+});
+</script>
 
-  <!-- Add this modal just before the closing </body> tag -->
 <div class="modal fade" id="twoFAModal" tabindex="-1" aria-labelledby="twoFAModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="background:#18232b;color:#fff;">
@@ -248,10 +362,6 @@
   </div>
   
   <script>
-  document.querySelector('.btn-outline-primary').addEventListener('click', function() {
-      var twoFAModal = new bootstrap.Modal(document.getElementById('twoFAModal'));
-      twoFAModal.show();
-  });
   
   // Demo 2FA verification (accepts "123456" as valid code)
   document.getElementById('verify2faForm').addEventListener('submit', function(e) {
@@ -269,5 +379,135 @@
       }
   });
   </script>
+  <script>
+    function applyTheme(mode) {
+        if (mode === "light") {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.body.style.background = "#fff";
+            document.body.style.color = "#222";
+        } else if (mode === "dark") {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.body.style.background = "#0f171c";
+            document.body.style.color = "#fff";
+        } else {
+            // System
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.body.style.background = "#0f171c";
+                document.body.style.color = "#fff";
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.body.style.background = "#fff";
+                document.body.style.color = "#222";
+            }
+        }
+    }
+    
+    // Load theme on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('themeMode') || 'system';
+        document.getElementById('themeLight').checked = savedTheme === 'light';
+        document.getElementById('themeDark').checked = savedTheme === 'dark';
+        document.getElementById('themeSystem').checked = savedTheme === 'system';
+        applyTheme(savedTheme);
+    
+        document.querySelectorAll('input[name="themeMode"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                localStorage.setItem('themeMode', this.value);
+                applyTheme(this.value);
+            });
+        });
+    
+        // Listen for system theme changes if "system" is selected
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if ((localStorage.getItem('themeMode') || 'system') === 'system') {
+                applyTheme('system');
+            }
+        });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+/* Bottom Nav Bar Styles */
+.bottom-nav-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1050;
+    background: #181d36;
+    border-top: 1px solid #22284a;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+}
+.bottom-nav-bar a {
+    flex: 1 1 0;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 0.25rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.1s;
+}
+.bottom-nav-bar a:active, .bottom-nav-bar a:focus {
+    background: #22303a;
+    color: #ff0101f1;
+}
+@media (min-width: 992px) {
+    .bottom-nav-bar { display: none !important; }
+}
+/* Reduce the height and padding of bottom nav bar buttons */
+.bottom-nav-bar {
+    padding: 0.15rem 0 !important;
+}
+.bottom-nav-bar a {
+    font-size: 0.78rem !important;
+    padding: 0.10rem 0 !important;
+}
+.bottom-nav-bar i {
+    font-size: 1.1rem !important;
+    margin-bottom: 0px !important;
+}
+</style>
+<nav class="bottom-nav-bar" id="bottomNavBar" style="display:none;">
+    <a href="dashboard.html">
+        <i class="bi bi-house-door"></i>
+        <span>Home</span>
+    </a>
+    <a href="deposit.html">
+        <i class="bi bi-wallet2"></i>
+        <span>Deposit</span>
+    </a>
+    <a href="investmentplan.html">
+        <i class="bi bi-bar-chart-line"></i>
+        <span>Investment</span>
+    </a>
+    <a href="withdraw.html">
+        <i class="bi bi-arrow-down-circle"></i>
+        <span>Withdraw</span>
+    </a>
+    <a href="history.html">
+        <i class="bi bi-clock-history"></i>
+        <span>History</span>
+    </a>
+</nav>
+<script>
+// Show nav only if user is logged in (e.g., has balances or a login flag)
+document.addEventListener('DOMContentLoaded', function() {
+    // Adjust this logic to your actual login/session check
+    var isLoggedIn = !!localStorage.getItem('userBalances');
+    if(isLoggedIn) {
+        document.getElementById('bottomNavBar').style.display = 'flex';
+    }
+});
+</script>
 </body>
 </html>
