@@ -54,7 +54,7 @@
 <body>
     <nav class="navbar navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="../../index.html">
+            <a class="navbar-brand" href="dashboard.html">
                 <img src="../../logo/logo-light.png" alt="General Alpha" width="160">
             </a>
         </div>
@@ -384,6 +384,40 @@
         }
     });
     </script>
+    <script>
+        function applyTheme(mode) {
+            if (mode === "light") {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.body.style.background = "#fff";
+                document.body.style.color = "#222";
+            } else if (mode === "dark") {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.body.style.background = "#0f171c";
+                document.body.style.color = "#fff";
+            } else {
+                // System
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.body.style.background = "#0f171c";
+                    document.body.style.color = "#fff";
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    document.body.style.background = "#fff";
+                    document.body.style.color = "#222";
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('themeMode') || 'system';
+            applyTheme(savedTheme);
+            // Listen for system theme changes if "system" is selected
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                if ((localStorage.getItem('themeMode') || 'system') === 'system') {
+                    applyTheme('system');
+                }
+            });
+        });
+        </script>
     </body>
 </body>
 </html>
