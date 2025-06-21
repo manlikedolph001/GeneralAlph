@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Active Investment History - GeneralAlpha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../build/assets/app-26e9a017.css">
+    <link rel="stylesheet" href="../../build/assets/theme-61cc1a47.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f171c 0%, #1a0c1c 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        .card {
+            border-radius: 18px;
+            background: rgba(24, 35, 43, 0.95);
+            border: none;
+            box-shadow: 0 8px 32px 0 rgba(90, 11, 77, 0.18);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .badge-matured {
+            background: #28a745;
+            color: #fff;
+            font-size: 0.95em;
+            padding: 0.4em 0.8em;
+            border-radius: 12px;
+        }
+        .badge-active {
+            background: #ff0101f1;
+            color: #fff;
+            font-size: 0.95em;
+            padding: 0.4em 0.8em;
+            border-radius: 12px;
+        }
+        @media (max-width: 767px) {
+            .table-responsive {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="dashboard.html">
+                <img src="../../logo/logo-light.png" alt="General Alpha" width="160">
+            </a>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <div class="card p-4">
+            <h2 class="mb-4 text-center">Active Investment History</h2>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Investment Amount</th>
+                            <th>Coin Used</th>
+                            <th>Investment Date</th>
+                            <th>Maturity Date</th>
+                            <th>Expected Profit</th>
+                            <th>Investment Plan</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="investmentTableBody">
+                        <!-- Investment rows will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Match plan structure to your dashboard logic
+    const investmentPlans = {
+        "starter":   { name: "First Package", percent: 16, duration: 1 },
+        "silver":    { name: "Second Package", percent: 24, duration: 3 },
+        "gold":      { name: "Third Package", percent: 35, duration: 7 },
+        "platinum":  { name: "Fourth Package", percent: 49, duration: 14 },
+        "goldplus":  { name: "Gold Package", percent: 72, duration: 30 }
+    };
+
+    // Get investments from localStorage (as used on your dashboard)
+    function getActiveInvestments() {
+        return JSON.parse(localStorage.getItem('activeInvestments') || '[]');
+    }
+
+    // Sort by most recent investment first
+    function sortByDateDesc(arr) {
+        return arr.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
+    function addDays(dateStr, days) {
+        const date = new Date(dateStr);
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+
+    function formatDate(date) {
+        if (!(date instanceof Date)) date = new Date(date);
+        return date.toISOString().split('T')[0];
+    }
+
+    function isMatured(maturityDate) {
+        const today = new Date();
+        return today >= maturityDate;
+    }
+
+    function renderInvestments() {
+        const tbody = document.getElementById('investmentTableBody');
+        let investments = getActiveInvestments();
+        if (!Array.isArray(investments) || investments.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center text-warning py-4">No active investments found.</td></tr>`;
+            return;
+        }
+        investments = sortByDateDesc(investments);
+        tbody.innerHTML = '';
+        investments.forEach(inv => {
+            // Plan key may be 'starter', 'silver', etc.
+            const plan = investmentPlans[inv.plan] || investmentPlans["starter"];
+            const investDate = new Date(inv.date);
+            const maturityDate = addDays(inv.date, plan.duration);
+            const matured = isMatured(maturityDate);
+            const profit = (parseFloat(inv.amount) * plan.percent / 100).toFixed(2);
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>$${parseFloat(inv.amount).toLocaleString(undefined, {minimumFractionDigits:2})}</td>
+                    <td>${inv.coin}</td>
+                    <td>${formatDate(investDate)}</td>
+                    <td>${formatDate(maturityDate)}</td>
+                    <td>$${profit}</td>
+                    <td>${plan.name}</td>
+                    <td>
+                        <span class="${matured ? 'badge-matured' : 'badge-active'}">
+                            ${matured ? 'Matured' : 'Active'}
+                        </span>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    renderInvestments();
+    </script>
+</body>
+</html>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+/* Bottom Nav Bar Styles */
+.bottom-nav-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1050;
+    background: #181d36;
+    border-top: 1px solid #22284a;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+}
+.bottom-nav-bar a {
+    flex: 1 1 0;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 0.25rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.1s;
+}
+.bottom-nav-bar a:active, .bottom-nav-bar a:focus {
+    background: #22303a;
+    color: #ff0101f1;
+}
+.bottom-nav-bar i {
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+}
+@media (min-width: 992px) {
+    .bottom-nav-bar { display: none !important; }
+}
+/* Reduce the height and padding of bottom nav bar buttons */
+.bottom-nav-bar {
+    padding: 0.15rem 0 !important;
+}
+.bottom-nav-bar a {
+    font-size: 0.78rem !important;
+    padding: 0.10rem 0 !important;
+}
+.bottom-nav-bar i {
+    font-size: 1.1rem !important;
+    margin-bottom: 0px !important;
+}
+</style>
+<nav class="bottom-nav-bar" id="bottomNavBar" style="display:none;">
+    <a href="dashboard.html">
+        <i class="bi bi-house-door"></i>
+        <span>Home</span>
+    </a>
+    <a href="deposit.html">
+        <i class="bi bi-wallet2"></i>
+        <span>Deposit</span>
+    </a>
+    <a href="investmentplan.html">
+        <i class="bi bi-bar-chart-line"></i>
+        <span>Investment</span>
+    </a>
+    <a href="withdraw.html">
+        <i class="bi bi-arrow-down-circle"></i>
+        <span>Withdraw</span>
+    </a>
+    <a href="history.html">
+        <i class="bi bi-clock-history"></i>
+        <span>History</span>
+    </a>
+</nav>
+<script>
+// Show nav only if user is logged in (e.g., has balances or a login flag)
+document.addEventListener('DOMContentLoaded', function() {
+    // Adjust this logic to your actual login/session check
+    var isLoggedIn = !!localStorage.getItem('userBalances');
+    if(isLoggedIn) {
+        document.getElementById('bottomNavBar').style.display = 'flex';
+    }
+});
+</script>
+<script>
+    function applyTheme(mode) {
+        if (mode === "light") {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.body.style.background = "#fff";
+            document.body.style.color = "#222";
+        } else if (mode === "dark") {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.body.style.background = "#0f171c";
+            document.body.style.color = "#fff";
+        } else {
+            // System
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.body.style.background = "#0f171c";
+                document.body.style.color = "#fff";
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.body.style.background = "#fff";
+                document.body.style.color = "#222";
+            }
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('themeMode') || 'system';
+        applyTheme(savedTheme);
+        // Listen for system theme changes if "system" is selected
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if ((localStorage.getItem('themeMode') || 'system') === 'system') {
+                applyTheme('system');
+            }
+        });
+    });
+    </script>
+</body>
+</html>
