@@ -113,7 +113,7 @@
             </a>
             <h1 class="auth-title">Create Your Account</h1>
             <p class="auth-subtitle">Join GeneralAlpha and start your investment journey today!</p>
-            <form method="POST" action="https://generalalpha.com/register">
+            <form id="registerForm">
                 <input type="hidden" name="_token" value="RyTGgklWk6hSQMk5pBfICM4MVzFTCFTFg0Lhw96u" autocomplete="off">
                 <div class="row">
                     <div class="col-12 col-md-6">
@@ -300,6 +300,14 @@
         }
     });
     </script>
+    
+    <script>
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Optionally save user info to localStorage for demo
+    window.location.href = "login.html";
+});
+</script>
 
     <!-- GTranslate: https://gtranslate.io/ -->
     <script>window.gtranslateSettings = {"default_language":"en","wrapper_selector":".gtranslate_wrapper"}</script>
