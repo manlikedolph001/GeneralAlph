@@ -3,192 +3,342 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard - General Alpha</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="../../favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicons/favicon-16x16.png">
-    <link rel="manifest" href="../../favicons/site.webmanifest">
-    <link rel="mask-icon" href="../../favicons/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="../../favicons/favicon.ico">
+    <title>Withdraw - General Alpha</title>
     <link rel="stylesheet" href="../../build/assets/app-26e9a017.css">
     <link rel="stylesheet" href="../../build/assets/theme-61cc1a47.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, rgba(15,23,28,0.95) 0%, rgba(26,12,28,0.92) 100%), url('../../logo/bg-blur.png') center/cover no-repeat;
+            background: linear-gradient(135deg, #0f171c 0%, #1a0c1c 100%);
             color: #fff;
             min-height: 100vh;
         }
-        .navbar-dark {
-            background: rgba(15,23,28,0.85) !important;
+        .card {
+            border-radius: 18px;
+            background: rgba(24, 35, 43, 0.95);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
             border: none;
-            box-shadow: 0 2px 16px 0 rgba(90, 11, 77, 0.10);
+        }
+        .form-label {
+            color: #fff;
+            font-weight: 500;
+        }
+        .form-control, .form-select {
+            background-color: #22303a;
+            color: #fff;
+            border: 1px solid #22303a;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #22303a;
+            color: #fff;
+            border: 1px solid #5a0b4d;
         }
         .btn-primary {
-            background: linear-gradient(90deg, #ff0101f1 0%, #5a0b4d 100%);
-            border: none !important;
-            font-weight: 600;
-            letter-spacing: 1px;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px #ff01013a;
+            background-color: #5a0b4d !important;
+            border-color: #5a0b4d !important;
         }
         .btn-primary:hover, .btn-primary:focus {
-            background: linear-gradient(90deg, #5a0b4d 0%, #ff0101f1 100%);
+            background-color: #3e0734 !important;
+            border-color: #3e0734 !important;
         }
-        .card, .stat-card {
-            border-radius: 18px;
-            background: rgba(24, 35, 43, 0.72) !important;
-            border: none;
-            box-shadow: 0 8px 32px 0 rgba(90, 11, 77, 0.18);
-            transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
-        }
-        .card:hover, .stat-card:hover {
-            transform: translateY(-7px) scale(1.03);
-            box-shadow: 0 16px 40px 0 rgba(90, 11, 77, 0.22);
-        }
-        .stat-card {
-            background: linear-gradient(120deg, rgba(90,11,77,0.65) 0%, rgba(45,11,58,0.65) 100%) !important;
-            color: white;
-        }
-        .stat-card.special {
-            background: linear-gradient(120deg, #1e7e34 0%, #2d0b3a 100%) !important;
-        }
-        .card-title, .card-subtitle {
-            color: #fff;
-        }
-        .card-header.bg-transparent {
-            background: transparent;
-            border-bottom: 1px solid #2d0b3a;
-        }
-        .table {
-            color: #fff;
-            background: transparent;
-        }
-        .table th, .table td {
-            border-color: #2d0b3a;
-        }
-        .table thead th {
-            color: #ff0101f1;
-            border-bottom: 2px solid #5a0b4d;
-        }
-        .table tbody tr {
-            background: rgba(90, 11, 77, 0.04);
-        }
-        .table tbody tr:hover {
-            background: rgba(90, 11, 77, 0.12);
-        }
-        .font-bold {
-            color: #ff0101f1;
-        }
-        .dashboard-balance-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        .dashboard-balance-row > .stat-col {
-            flex: 1 1 220px;
-            min-width: 220px;
-            max-width: 100%;
-            margin-bottom: 0 !important;
-        }
-        .dashboard-balance-row > .stat-col .card {
-            height: 100%;
-        }
-        .card-body.d-flex {
-            min-height: 120px;
-        }
-        .welcome-section {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        #welcome-message {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ff0101f1;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.18);
-        }
-        /* Market widget card */
-        .market-widget-card {
-            background: rgba(24, 35, 43, 0.72) !important;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px 0 rgba(90, 11, 77, 0.18);
-        }
-        @media (max-width: 1200px) {
-            .dashboard-balance-row {
-                gap: 1rem;
-            }
-            .dashboard-balance-row > .stat-col {
-                min-width: 180px;
-            }
-        }
-        @media (max-width: 991px) {
-            .dashboard-balance-row {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            .dashboard-balance-row > .stat-col {
-                min-width: 45%;
-                flex: 1 1 45%;
-                margin-bottom: 1.5rem;
-            }
-        }
-        @media (max-width: 767px) {
-            .dashboard-balance-row {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            .dashboard-balance-row > .stat-col {
-                min-width: 100%;
-                flex: 1 1 100%;
-                margin-bottom: 1rem;
-            }
-            #welcome-message {
-                font-size: 1.3rem;
-            }
-            .card-body.d-flex {
-                min-height: 80px;
-            }
-        }
-        /* Bottom Nav Bar Styles */
-        .bottom-nav-bar {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1050;
-            background: rgba(24, 29, 54, 0.95);
-            border-top: 1px solid #22284a;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0.5rem 0;
-            box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
-        }
-        .bottom-nav-bar a {
-            flex: 1 1 0;
-            text-align: center;
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.85rem;
-            padding: 0.25rem 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background 0.1s;
-        }
-        .bottom-nav-bar a:active, .bottom-nav-bar a:focus {
+        .alert-info {
             background: #22303a;
-            color: #ff0101f1;
+            color: #fff;
+            border: 1px solid #5a0b4d;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
         }
-        .bottom-nav-bar i {
-            font-size: 1.4rem;
-            margin-bottom: 2px;
+        .mt-4 { margin-top: 1.5rem !important; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="dashboard.html">
+                <img src="../../logo/logo-light.png" alt="General Alpha" width="160">
+            </a>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card p-4">
+                    <h3 class="mb-4 text-center" style="color:#ff0101f1;">Withdraw Funds</h3>
+                    <form id="withdrawForm">
+                        <div class="mb-3">
+                            <label for="withdrawAmount" class="form-label">Amount to Withdraw (USD)</label>
+                            <input type="number" class="form-control" id="withdrawAmount" min="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="walletSelect" class="form-label">Select Wallet</label>
+                            <select class="form-select" id="walletSelect" required>
+                                <option value="">Choose from saved wallets...</option>
+                                <!-- Wallet options will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="useOtherWallet">
+                            <label class="form-check-label" for="useOtherWallet">
+                                Use a different wallet address
+                            </label>
+                        </div>
+                        <div class="mb-3" id="otherWalletSection" style="display:none;">
+                            <label for="otherWalletType" class="form-label">Wallet Type</label>
+                            <select class="form-select" id="otherWalletType">
+                                <option value="">Choose...</option>
+                                <option value="btc">Bitcoin (BTC)</option>
+                                <option value="usdt">Tether (USDT)</option>
+                                <option value="eth">Ethereum (ETH)</option>
+                                <option value="trx">Tron (TRX)</option>
+                            </select>
+                            <label for="otherWalletAddress" class="form-label mt-2">Wallet Address</label>
+                            <input type="text" class="form-control" id="otherWalletAddress">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-4">Withdraw</button>
+                    </form>
+                    <div id="waitMessage" class="alert-info text-center" style="display:none;">
+                        Your withdrawal request has been submitted. Please wait while we process your transaction.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Populate saved wallets from localStorage
+    function populateWallets() {
+        const walletSelect = document.getElementById('walletSelect');
+        walletSelect.innerHTML = '<option value="">Choose from saved wallets...</option>';
+        const wallets = [
+            { type: 'btc', name: 'Bitcoin (BTC)' },
+            { type: 'usdt', name: 'Tether (USDT)' },
+            { type: 'eth', name: 'Ethereum (ETH)' },
+            { type: 'trx', name: 'Tron (TRX)' }
+        ];
+        let hasWallet = false;
+        wallets.forEach(w => {
+            const address = localStorage.getItem('wallet_' + w.type);
+            if(address) {
+                hasWallet = true;
+                const opt = document.createElement('option');
+                opt.value = w.type + ':' + address;
+                opt.textContent = `${w.name}: ${address}`;
+                walletSelect.appendChild(opt);
+            }
+        });
+        if(!hasWallet) {
+            const opt = document.createElement('option');
+            opt.value = "";
+            opt.textContent = "No saved wallets. Please add one in Add Wallet page.";
+            walletSelect.appendChild(opt);
         }
-        @media (min-width: 992px) {
-            .bottom-nav-bar { display: none !important; }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        populateWallets();
+
+        const useOtherWallet = document.getElementById('useOtherWallet');
+        const otherWalletSection = document.getElementById('otherWalletSection');
+        const walletSelect = document.getElementById('walletSelect');
+        const otherWalletType = document.getElementById('otherWalletType');
+        const otherWalletAddress = document.getElementById('otherWalletAddress');
+
+        useOtherWallet.addEventListener('change', function() {
+            if(this.checked) {
+                otherWalletSection.style.display = 'block';
+                walletSelect.required = false;
+                otherWalletType.required = true;
+                otherWalletAddress.required = true;
+            } else {
+                otherWalletSection.style.display = 'none';
+                walletSelect.required = true;
+                otherWalletType.required = false;
+                otherWalletAddress.required = false;
+            }
+        });
+
+        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // You can add further validation or send data to server here
+            document.getElementById('withdrawForm').style.display = 'none';
+            document.getElementById('waitMessage').style.display = 'block';
+        });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function populateWallets() {
+            const walletSelect = document.getElementById('walletSelect');
+            walletSelect.innerHTML = '<option value="">Choose from saved wallets...</option>';
+            const wallets = [
+                { type: 'btc', name: 'Bitcoin (BTC)' },
+                { type: 'usdt', name: 'Tether (USDT)' },
+                { type: 'eth', name: 'Ethereum (ETH)' },
+                { type: 'trx', name: 'Tron (TRX)' }
+            ];
+            let hasWallet = false;
+            wallets.forEach(w => {
+                const address = localStorage.getItem('wallet_' + w.type);
+                if(address) {
+                    hasWallet = true;
+                    const opt = document.createElement('option');
+                    opt.value = w.type + ':' + address;
+                    opt.textContent = `${w.name}: ${address}`;
+                    walletSelect.appendChild(opt);
+                }
+            });
+            if(!hasWallet) {
+                const opt = document.createElement('option');
+                opt.value = "";
+                opt.textContent = "No saved wallets. Please add one in Add Wallet page.";
+                walletSelect.appendChild(opt);
+            }
         }
-        /* Reduce the height and padding of bottom nav bar buttons */
+        
+        // Utility to update balances in localStorage
+        function getUserBalances() {
+            return JSON.parse(localStorage.getItem('userBalances') || '{}');
+        }
+        function setUserBalances(balances) {
+            localStorage.setItem('userBalances', JSON.stringify(balances));
+        }
+        function getWithdrawalHistory() {
+            return JSON.parse(localStorage.getItem('withdrawalHistory') || '[]');
+        }
+        function setWithdrawalHistory(history) {
+            localStorage.setItem('withdrawalHistory', JSON.stringify(history));
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            populateWallets();
+        
+            // Add coin selection for withdrawal
+            const withdrawForm = document.getElementById('withdrawForm');
+            const amountDiv = withdrawForm.querySelector('.mb-3');
+            const coinDiv = document.createElement('div');
+            coinDiv.className = 'mb-3';
+            coinDiv.innerHTML = `
+                <label for="withdrawCoin" class="form-label">Select Coin Balance</label>
+                <select class="form-select" id="withdrawCoin" required>
+                    <option value="">Choose coin...</option>
+                    <option value="BTC">BTC</option>
+                    <option value="USDT">USDT</option>
+                    <option value="ETH">ETH</option>
+                    <option value="BNB">BNB</option>
+                    <option value="TRX">TRX</option>
+                </select>
+                <div id="withdrawCoinBalance" class="form-text text-info mt-1"></div>
+            `;
+            amountDiv.after(coinDiv);
+        
+            // Show available balance when coin is selected
+            document.getElementById('withdrawCoin').addEventListener('change', function() {
+                const coin = this.value;
+                const balances = getUserBalances();
+                document.getElementById('withdrawCoinBalance').textContent = coin && balances[coin] !== undefined
+                    ? `Available: $${balances[coin]}`
+                    : '';
+            });
+        
+            const useOtherWallet = document.getElementById('useOtherWallet');
+            const otherWalletSection = document.getElementById('otherWalletSection');
+            const walletSelect = document.getElementById('walletSelect');
+            const otherWalletType = document.getElementById('otherWalletType');
+            const otherWalletAddress = document.getElementById('otherWalletAddress');
+        
+            useOtherWallet.addEventListener('change', function() {
+                if(this.checked) {
+                    otherWalletSection.style.display = 'block';
+                    walletSelect.required = false;
+                    otherWalletType.required = true;
+                    otherWalletAddress.required = true;
+                } else {
+                    otherWalletSection.style.display = 'none';
+                    walletSelect.required = true;
+                    otherWalletType.required = false;
+                    otherWalletAddress.required = false;
+                }
+            });
+        
+            withdrawForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(document.getElementById('withdrawAmount').value);
+                const coin = document.getElementById('withdrawCoin').value;
+                if (!coin) {
+                    alert('Please select a coin balance to withdraw from.');
+                    return;
+                }
+                const balances = getUserBalances();
+                if (isNaN(amount) || amount <= 0) {
+                    alert('Enter a valid amount.');
+                    return;
+                }
+                if (amount > (balances[coin] || 0)) {
+                    alert('Insufficient balance.');
+                    return;
+                }
+                // Deduct balance
+                balances[coin] -= amount;
+                setUserBalances(balances);
+        
+                // Add to withdrawal history
+                const history = getWithdrawalHistory();
+                history.unshift({
+                    date: new Date().toLocaleString(),
+                    amount: amount,
+                    currency: coin,
+                    status: Math.random() > 0.5 ? 'Pending' : 'Approved'
+                });
+                setWithdrawalHistory(history);
+        
+                withdrawForm.style.display = 'none';
+                document.getElementById('waitMessage').style.display = 'block';
+            });
+        });
+        </script>
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+    /* Bottom Nav Bar Styles */
+    .bottom-nav-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1050;
+        background: #181d36;
+        border-top: 1px solid #22284a;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0.5rem 0;
+        box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+    .bottom-nav-bar a {
+        flex: 1 1 0;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        padding: 0.25rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: background 0.1s;
+    }
+    .bottom-nav-bar a:active, .bottom-nav-bar a:focus {
+        background: #22303a;
+        color: #ff0101f1;
+    }
+    .bottom-nav-bar i {
+        font-size: 1.4rem;
+        margin-bottom: 2px;
+    }
+    @media (min-width: 992px) {
+        .bottom-nav-bar { display: none !important; }
+    }
+    /* Reduce the height and padding of bottom nav bar buttons */
 .bottom-nav-bar {
     padding: 0.15rem 0 !important;
 }
@@ -200,138 +350,8 @@
     font-size: 1.1rem !important;
     margin-bottom: 0px !important;
 }
+    
     </style>
-</head>
-<body>
-    <nav class="navbar navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="../../index.html">
-                <img src="../../logo/logo-light.png" alt="General Alpha" width="160">
-            </a>
-            <div class="dropdown">
-                <button class="btn btn-link dropdown-toggle text-white" type="button" id="userMenu" data-bs-toggle="dropdown">
-                    <img src="../../build/assets/avatar-status-a27e1ee1.svg" class="rounded-circle" width="32">
-                    <span class="ms-2">My Account</span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
-                    <li><a class="dropdown-item" href="wallet.html">Add Wallet</a></li>
-                    <li><a class="dropdown-item" href="deposit.html">Deposit</a></li>
-                    <li><a class="dropdown-item" href="withdraw.html">Withdraw</a></li>
-                    <li><a class="dropdown-item" href="investmentplan.html">Investment Plan</a></li>
-                    <li><a class="dropdown-item" href="history.html">Transaction History</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="../../login.html">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container my-5">
-        <div class="welcome-section">
-            <h2 id="welcome-message"></h2>
-        </div>
-        <div class="row g-4 dashboard-balance-row">
-            <!-- Total Balance -->
-            <div class="col-md-6 col-lg-3 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-2">Total Balance</h6>
-                        <h2 class="card-title mb-0">$0.00</h2>
-                    </div>
-                </div>
-            </div>
-            <!-- BTC Balance -->
-            <div class="col-md-6 col-lg-2 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <img src="../../logo/btc.png" alt="BTC" width="32" class="mb-2">
-                        <h6 class="card-subtitle mb-1">BTC</h6>
-                        <h4 class="card-title mb-0">$0.00</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- USDT Balance -->
-            <div class="col-md-6 col-lg-2 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <img src="../../logo/usdt.png" alt="USDT" width="32" class="mb-2">
-                        <h6 class="card-subtitle mb-1">USDT</h6>
-                        <h4 class="card-title mb-0">$0.00</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- BNB Balance -->
-            <div class="col-md-6 col-lg-2 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <img src="../../logo/bnb.png" alt="BNB" width="32" class="mb-2">
-                        <h6 class="card-subtitle mb-1">BNB</h6>
-                        <h4 class="card-title mb-0">$0.00</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- TRON Balance -->
-            <div class="col-md-6 col-lg-2 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <img src="../../logo/trx.png" alt="TRON" width="32" class="mb-2">
-                        <h6 class="card-subtitle mb-1">TRON</h6>
-                        <h4 class="card-title mb-0">$0.00</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- ETH Balance -->
-            <div class="col-md-6 col-lg-2 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <img src="../../logo/eth.png" alt="ETH" width="32" class="mb-2">
-                        <h6 class="card-subtitle mb-1">ETH</h6>
-                        <h4 class="card-title mb-0">$0.00</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- Active Investments -->
-            <div class="col-md-6 col-lg-3 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-2">Active Investments</h6>
-                        <h2 class="card-title mb-0">3</h2>
-                    </div>
-                </div>
-            </div>
-            <!-- Total Profit -->
-            <div class="col-md-6 col-lg-3 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-2">Total Profit</h6>
-                        <h2 class="card-title mb-0">$0.00</h2>
-                    </div>
-                </div>
-            </div>
-            <!-- Total Investments -->
-            <div class="col-md-6 col-lg-3 stat-col">
-                <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-2">Total Investments</h6>
-                        <h2 class="card-title mb-0">$0.00</h2>
-                    </div>
-                </div>
-            </div>
-            <!-- Total Referrals -->
-            <div class="col-md-6 col-lg-3 stat-col">
-                <div class="card stat-card h-100 special">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <i class="bi bi-people-fill mb-2" style="font-size:2rem;color:#fff;"></i>
-                        <h6 class="card-subtitle mb-2">Total Referrals</h6>
-                        <h2 class="card-title mb-0" id="totalReferrals">0</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-
     <nav class="bottom-nav-bar" id="bottomNavBar" style="display:none;">
         <a href="dashboard.html">
             <i class="bi bi-house-door"></i>
@@ -350,239 +370,18 @@
             <span>Withdraw</span>
         </a>
         <a href="history.html">
-            <i class="bi bi-arrow-down-circle"></i>
+            <i class="bi bi-clock-history"></i>
             <span>History</span>
         </a>
     </nav>
     <script>
     // Show nav only if user is logged in (e.g., has balances or a login flag)
     document.addEventListener('DOMContentLoaded', function() {
+        // Adjust this logic to your actual login/session check
         var isLoggedIn = !!localStorage.getItem('userBalances');
         if(isLoggedIn) {
             document.getElementById('bottomNavBar').style.display = 'flex';
         }
-    });
-    </script>
-
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../build/assets/theme-61cc1a47.js" defer></script>
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-            // Personalized welcome message (already present)
-            var welcomeMessage = document.getElementById('welcome-message');
-            var userName = localStorage.getItem('dashboardUserName');
-            if (userName && userName.trim() !== "") {
-                welcomeMessage.textContent = "Welcome, " + userName + "!";
-            } else {
-                var hour = new Date().getHours();
-                if (hour < 12) {
-                    welcomeMessage.textContent = 'Good Morning!';
-                } else if (hour < 18) {
-                    welcomeMessage.textContent = 'Good Afternoon!';
-                } else {
-                    welcomeMessage.textContent = 'Good Evening!';
-                }
-            }
-
-    // --- REFERRAL COUNT LOGIC ---
-    // Simulate: localStorage.setItem('myReferrals', JSON.stringify(['user1','user2','user3']));
-    function getTotalReferrals() {
-        // Should be an array of user IDs or emails who joined via this user's link
-        const arr = JSON.parse(localStorage.getItem('myReferrals') || '[]');
-        return Array.isArray(arr) ? arr.length : 0;
-    }
-    // Update referral card
-    document.getElementById('totalReferrals').textContent = getTotalReferrals();
-
-
-    // --- LIVE BALANCES & INVESTMENTS ---
-    // Utility functions
-    function getUserBalances() {
-        return JSON.parse(localStorage.getItem('userBalances') || '{}');
-    }
-    function getTotalInvestment() {
-        return parseFloat(localStorage.getItem('totalInvestment') || '0');
-    }
-    function getActiveInvestments() {
-        return JSON.parse(localStorage.getItem('activeInvestments') || '[]');
-    }
-    function getTotalProfit() {
-        return parseFloat(localStorage.getItem('totalProfit') || '0');
-    }
-    function getDepositHistory() {
-        return JSON.parse(localStorage.getItem('depositHistory') || '[]');
-    }
-    function getWithdrawalHistory() {
-        return JSON.parse(localStorage.getItem('withdrawalHistory') || '[]');
-    }
-    function getTotalBalance() {
-        const balances = getUserBalances();
-        let total = 0;
-        for (let k in balances) total += parseFloat(balances[k] || 0);
-        return total;
-    }
-
-    // Update dashboard cards and tables
-    function updateDashboardUI() {
-        const balances = getUserBalances();
-        // Coin balances
-        document.querySelectorAll('.card-subtitle.mb-1').forEach(function(el){
-            if(el.textContent.trim() === 'BTC') el.parentElement.querySelector('.card-title').textContent = '$' + (balances.BTC || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-            if(el.textContent.trim() === 'USDT') el.parentElement.querySelector('.card-title').textContent = '$' + (balances.USDT || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-            if(el.textContent.trim() === 'BNB') el.parentElement.querySelector('.card-title').textContent = '$' + (balances.BNB || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-            if(el.textContent.trim() === 'TRON') el.parentElement.querySelector('.card-title').textContent = '$' + (balances.TRX || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-            if(el.textContent.trim() === 'ETH') el.parentElement.querySelector('.card-title').textContent = '$' + (balances.ETH || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-        });
-        // Stat cards
-        document.querySelectorAll('.card-subtitle.mb-2').forEach(function(el){
-            if(el.textContent.trim() === 'Total Balance') el.parentElement.querySelector('.card-title').textContent = '$' + getTotalBalance().toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-            if(el.textContent.trim() === 'Active Investments') el.parentElement.querySelector('.card-title').textContent = getActiveInvestments().length;
-            if(el.textContent.trim() === 'Total Investments') el.parentElement.querySelector('.card-title').textContent = '$' + getTotalInvestment().toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-            if(el.textContent.trim() === 'Total Profit') el.parentElement.querySelector('.card-title').textContent = '$' + getTotalProfit().toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-        });
-        // Deposit History
-        document.querySelectorAll('.card-header').forEach(function(header){
-            if(header.textContent.includes('Deposit')) {
-                const depositTable = header.parentElement.querySelector('tbody');
-                if (depositTable) {
-                    const deposits = getDepositHistory();
-                    let rows = '';
-                    deposits.forEach(function(dep) {
-                        rows += `<tr>
-                            <td>${dep.date}</td>
-                            <td>$${parseFloat(dep.amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                            <td>${dep.currency}</td>
-                            <td><span class="badge bg-success">${dep.status}</span></td>
-                        </tr>`;
-                    });
-                    depositTable.innerHTML = rows;
-                }
-            }
-            // Withdrawal History
-            if(header.textContent.includes('Withdrawal')) {
-                const withdrawalTable = header.parentElement.querySelector('tbody');
-                if (withdrawalTable) {
-                    const withdrawals = getWithdrawalHistory();
-                    let rows = '';
-                    withdrawals.forEach(function(wd) {
-                        rows += `<tr>
-                            <td>${wd.date}</td>
-                            <td>$${parseFloat(wd.amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                            <td>${wd.currency}</td>
-                            <td><span class="badge ${wd.status === 'Completed' ? 'bg-success' : 'bg-warning text-dark'}">${wd.status}</span></td>
-                        </tr>`;
-                    });
-                    withdrawalTable.innerHTML = rows;
-                }
-            }
-        });
-    }
-
-    updateDashboardUI();
-    setInterval(updateDashboardUI, 10000);
-});
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var isLoggedIn = !!localStorage.getItem('userBalances');
-        if(isLoggedIn) {
-            document.getElementById('bottomNavBar').style.display = 'flex';
-        }
-    
-        function getDepositHistory() {
-            return JSON.parse(localStorage.getItem('depositHistory') || '[]');
-        }
-        function getWithdrawalHistory() {
-            return JSON.parse(localStorage.getItem('withdrawalHistory') || '[]');
-        }
-    
-        // Filter by date range
-        function filterByRange(arr, start, end) {
-            if (!start && !end) return arr;
-            return arr.filter(function(item) {
-                // Try to parse the date string robustly
-                let itemDateObj = new Date(item.date);
-                // If parsing fails, fallback to extracting date part
-                if (isNaN(itemDateObj.getTime())) {
-                    // Try to extract MM/DD/YYYY or DD/MM/YYYY
-                    let parts = item.date.split(/[ ,:\/]+/);
-                    if (parts.length >= 3) {
-                        // Try MM/DD/YYYY
-                        let mm = parseInt(parts[0], 10);
-                        let dd = parseInt(parts[1], 10);
-                        let yyyy = parseInt(parts[2], 10);
-                        if (yyyy > 1000 && mm <= 12 && dd <= 31) {
-                            itemDateObj = new Date(yyyy, mm - 1, dd);
-                        }
-                    }
-                }
-                let startObj = start ? new Date(start) : null;
-                let endObj = end ? new Date(end) : null;
-                // Remove time for comparison
-                itemDateObj.setHours(0,0,0,0);
-                if (startObj) startObj.setHours(0,0,0,0);
-                if (endObj) endObj.setHours(0,0,0,0);
-                if (startObj && itemDateObj < startObj) return false;
-                if (endObj && itemDateObj > endObj) return false;
-                return true;
-            });
-        }
-        
-        function renderHistoryTable(type, filtered) {
-            const tbody = document.getElementById('historyTableBody');
-            let rows = '';
-            const data = filtered || (type === 'deposit' ? getDepositHistory() : getWithdrawalHistory());
-            if (data.length === 0) {
-                rows = `<tr><td colspan="4" class="text-center text-warning py-4">NO TRANSACTION WAS FOUND</td></tr>`;
-            } else {
-                data.forEach(function(item) {
-                    rows += `<tr>
-                        <td>${item.date}</td>
-                        <td>$${parseFloat(item.amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                        <td>${item.currency}</td>
-                        <td><span class="badge ${item.status === 'Approved' || item.status === 'Completed' ? 'bg-success' : 'bg-warning text-dark'}">${item.status}</span></td>
-                    </tr>`;
-                });
-            }
-            tbody.innerHTML = rows;
-        }
-        
-        // The rest of your code remains unchanged.
-    
-        // Handle filter/search form
-        document.getElementById('historyRangeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const type = document.getElementById('historyType').value;
-            const start = document.getElementById('startDate').value;
-            const end = document.getElementById('endDate').value;
-            let data = type === 'deposit' ? getDepositHistory() : getWithdrawalHistory();
-            if (start || end) {
-                data = filterByRange(data, start, end);
-            }
-            document.getElementById('historyCardTitle').textContent = type === 'deposit' ? 'Deposit History' : 'Withdrawal History';
-            renderHistoryTable(type, data);
-        });
-    
-        document.getElementById('clearHistorySearch').addEventListener('click', function() {
-            document.getElementById('startDate').value = '';
-            document.getElementById('endDate').value = '';
-            document.getElementById('historyType').value = 'deposit';
-            document.getElementById('historyCardTitle').textContent = 'Deposit History';
-            renderHistoryTable('deposit');
-        });
-    
-        // Change table when user switches type
-        document.getElementById('historyType').addEventListener('change', function() {
-            document.getElementById('historyCardTitle').textContent = this.value === 'deposit' ? 'Deposit History' : 'Withdrawal History';
-            renderHistoryTable(this.value);
-        });
-    
-        // Initial load
-        renderHistoryTable('deposit');
-        setInterval(function() {
-            const type = document.getElementById('historyType').value;
-            renderHistoryTable(type);
-        }, 10000);
     });
     </script>
     <script>
@@ -618,6 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
-    </script>
+        </script>
+    </body>
 </body>
 </html>
