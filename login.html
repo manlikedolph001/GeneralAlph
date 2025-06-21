@@ -106,7 +106,7 @@
             </a>
             <h1 class="auth-title">Sign in</h1>
             <p class="auth-subtitle">Sign in to our dashboard.</p>
-            <form method="POST" action="https://generalalpha.com/login">
+            <form id="loginForm">
                 <input type="hidden" name="_token" value="RyTGgklWk6hSQMk5pBfICM4MVzFTCFTFg0Lhw96u" autocomplete="off">
                 <div class="form-group">
                     <label for="login_identity" class="form-label">Email address or Username</label>
@@ -206,6 +206,13 @@
             }
         });
     </script>
+    <script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Optionally save username/email for demo
+    window.location.href = "dashboard/deposit/dashboard.html";
+});
+</script>
     <!-- GTranslate: https://gtranslate.io/ -->
     <script>window.gtranslateSettings = {"default_language":"en","wrapper_selector":".gtranslate_wrapper"}</script>
     <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
